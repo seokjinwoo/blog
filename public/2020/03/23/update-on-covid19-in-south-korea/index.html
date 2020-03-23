@@ -153,7 +153,7 @@ data.region$date &lt;- as.Date(data.region$date,&quot;%Y-%m-%d&quot; )</code></p
   guides(color = FALSE) + 
   # scale_color_manual(values = prismatic::clr_darken(paletteer_d(&quot;nord::aurora&quot;))) +
   scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
-                     breaks = 2^seq(2, 11),
+                     breaks = 2^seq(2, 13),
                      trans = &quot;log2&quot;) +
   labs(x = &quot;Days Since 10th Confirmed Patiens&quot;, 
        y = &quot;Cumulative Number of Confirmed (log scale)&quot;, 
@@ -183,7 +183,7 @@ data.region$date &lt;- as.Date(data.region$date,&quot;%Y-%m-%d&quot; )</code></p
   guides(color = FALSE) + 
   # scale_color_manual(values = prismatic::clr_darken(paletteer_d(&quot;nord::aurora&quot;))) +
   scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
-                     breaks = 2^seq(2, 11),
+                     breaks = 2^seq(2, 13),
                      trans = &quot;log2&quot;) +
   labs(x = &quot;Days Since 10th Confirmed Patiens&quot;, 
        y = &quot;Cumulative Number of Confirmed (log scale)&quot;, 
