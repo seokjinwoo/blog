@@ -13,10 +13,164 @@ tags:
 
 지역별로 COVID19 확진자 동향을 그려보았습니다.
 
-- 자료를 읽고
-- 클리닝을 하고
-- ggplot2를 이용하고
-- 인덱스 업데이트 하는 것이 우리의 일이다.
+일단 필요한 라이브러리들을 로딩하였습니다. 코딩을 다양하게 시도하다보니 약간 뒤죽박죽입니다.
+
+
+```{r, message=FALSE}
+rm(list = ls())
+library(tidyverse)
+library(lubridate)
+library(here)
+library(janitor)
+library(socviz)
+library(ggrepel)
+library(paletteer)
+library(foreign)
+
+```
+
+김지우님 깃헙에서 데이터를 가져왔습니다.
+
+```{r}
+
+url <- "https://raw.githubusercontent.com/jihoo-kim/Data-Science-for-COVID-19/master/dataset/Time/TimeProvince.csv"
+
+data.region <- read_csv(url)
+
+```
+
+
+데이터가 잘 불러들여진 것 같습니다. 
+변수는 date, time, provice, confirmed, released, deceased 입니다.
+
+날짜 데이터를 date 포맷으로 선언하였습니다. 이렇게 바꾸어두면 나중에 그림에서 날짜 표시할 때 편합디다.
+
+
+```{r}
+# cleaning data set
+data.region$date <- as.Date(data.region$date,"%Y-%m-%d" )
+```
+
+약간 노가다이긴 하지만, 영어로 된 지역 이름을 한글로 바꾸었습니다. 원래 우리는 노가다아입니꺼.
+그리고, 한 가지 힘들었던 것이 10일 이상되었을 때부터 날짜를 셀 수 있도록 새로운 날짜(days_elapsed)를 새로 만들었는데, 아래와 같이 간단한 잔머리를 사용하였습니다. 한 가지 더 잔머리를 쓴 것은 아래 그림에서 지역 이름을 그래프 마다 붙였는데, 나중에 label 을 붙일 수 있도록 마지막 값에는 지역이름을, 나머지 값에는 NA를 집어 넣었습니다.
+
+```{r}
+
+region <- data.region %>% 
+  select(date, province, confirmed) %>% 
+  group_by(province) %>% 
+  arrange(province, date) %>% 
+  filter(confirmed > 9) %>% 
+  mutate(days_elapsed = date - min(date),
+         end_label = ifelse(date == max(date), province, NA)) %>% 
+  mutate(end_label = recode(end_label,
+                            'Busan' = "부산",
+                            'Chungcheongbuk-do' = "충청북도",
+                            'Chungcheongnam-do' = "충청남도",
+                            'Daegu' = "대구",
+                            'Daejeon' = "대전",
+                            'Gangwon-do' = "강원도",
+                            'Gwangju' = "광주",
+                            'Gyeonggi-do' = "경기도",
+                            'Gyeongsangbuk-do' = "경상북도",
+                            'Gyeongsangnam-do' = "경상남도",
+                            'Incheon' = "인천",
+                            'Sejong' = "세종",
+                            'Seoul' = "서울",
+                            'Ulsan' = "울산",
+                            )
+         )
+         
+ 
+```
+
+그리고 집중적으로 살펴볼 지역은 따로 인덱스를 정의해두었습니다.
+
+```{r}
+focus_region <- c(
+"Seoul", 
+"Gyeonggi-do",
+"Gyeongsangbuk-do",
+"Daegu",
+"Sejong"
+)
+```
+ 
+ 
+먼저 전국 단위에서 그림을 그렸습니다. 참, y-축은 로그변환을 하였습니다. 로그-변환된 축은 증가율이 어떤지 보는데 유용합니다. 시계열을 살펴보는 기본적인 축변환입니다. 
+
+```{r, message=FALSE, warning=FALSE}
+
+
+region %>% 
+  ggplot(mapping = aes(x = days_elapsed, y = confirmed,
+                       color = province,
+                       label = end_label,
+                       group = province)) +
+  geom_line(size = 0.8) +
+  geom_text_repel(nudge_x = 1.5,
+                  nudge_y = -0.1, 
+                  segment.color = NA) +
+  guides(color = FALSE) + 
+  # scale_color_manual(values = prismatic::clr_darken(paletteer_d("nord::aurora"))) +
+  scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
+                     breaks = 2^seq(2, 11),
+                     trans = "log2") +
+  labs(x = "Days Since 10th Confirmed Patiens", 
+       y = "Cumulative Number of Confirmed (log scale)", 
+       title = "Cumulative confirmed's from COVID-19", 
+       caption = "중요한경제문제연구소 / Data: ji-hoo kim") + 
+  theme(plot.title = element_text(size = rel(1.5), face = "bold"),
+        plot.subtitle = element_text(size = rel(1.0)),
+        axis.text.y = element_text(size = rel(1.0)),
+        axis.title.x = element_text(size = rel(1.0)),
+        axis.title.y = element_text(size = rel(1.0)),
+        axis.text.x = element_text(size = rel(1.5)),
+        legend.text = element_text(size = rel(2)) 
+  )
+
+```
+
+
+위 그림을 보니 대구/경북외에 다른 지역들의 증가세는 상당히 꺾여 있는 것을 볼 수 있습니다. 우리나라 의료진 대단합니다. 
+
+
+
+그리고 주요 지역에 대해서 다시 그림을 그렸습니다.서울/경기도는 아직도 로그-선형입니다. 기울기를 보니, 10일마다 2배씩 증가하고 있습니다. 세종시는 잘 교육받은 공무원/공공기관 종사자들이 살고 있어서 그런지 초기의 무섭던 기세가 빠르게 잡혔습니다. 역시 우리나라 공공부분 대단합니다. 
+
+
+```{r, message=FALSE, warning=FALSE}
+region %>% 
+  filter(province %in% focus_region) %>% 
+  ggplot(mapping = aes(x = days_elapsed, y = confirmed,
+                       color = province,
+                       label = end_label,
+                       group = province)) +
+  geom_line(size = 0.8) +
+  geom_text_repel(nudge_x = 1.5,
+                  nudge_y = -0.1, 
+                  segment.color = NA) +
+  guides(color = FALSE) + 
+  # scale_color_manual(values = prismatic::clr_darken(paletteer_d("nord::aurora"))) +
+  scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
+                     breaks = 2^seq(2, 11),
+                     trans = "log2") +
+  labs(x = "Days Since 10th Confirmed Patiens", 
+       y = "Cumulative Number of Confirmed (log scale)", 
+       title = "Cumulative confirmed's from COVID-19, Selected regions", 
+       caption = "중요한경제문제연구소 / Data: ji-hoo kim") + 
+  theme(plot.title = element_text(size = rel(1.5), face = "bold"),
+        plot.subtitle = element_text(size = rel(1.0)),
+        axis.text.y = element_text(size = rel(1.0)),
+        axis.title.x = element_text(size = rel(1.0)),
+        axis.title.y = element_text(size = rel(1.0)),
+        axis.text.x = element_text(size = rel(1.5)),
+        legend.text = element_text(size = rel(2)) 
+  )
+
+
+```
+
 
 
 

@@ -22,6 +22,11 @@
 
 
 
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
 <link rel="stylesheet" href="/css/fonts.css" media="all">
 <link rel="stylesheet" href="/css/main.css" media="all">
 
@@ -57,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">1 min read</span>
+    <span class="article-duration">3 min read</span>
     
 
     <h1 class="article-title">Update on COVID19 in South Korea</h1>
@@ -73,12 +78,126 @@
 <div id="update-on-covid19-in-south-korea-by-region" class="section level1">
 <h1>Update on COVID19 in South Korea by Region</h1>
 <p>지역별로 COVID19 확진자 동향을 그려보았습니다.</p>
-<ul>
-<li>자료를 읽고</li>
-<li>클리닝을 하고</li>
-<li>ggplot2를 이용하고</li>
-<li>인덱스 업데이트 하는 것이 우리의 일이다.</li>
-</ul>
+<p>일단 필요한 라이브러리들을 로딩하였습니다. 코딩을 다양하게 시도하다보니 약간 뒤죽박죽입니다.</p>
+<pre class="r"><code>rm(list = ls())
+library(tidyverse)
+library(lubridate)
+library(here)
+library(janitor)
+library(socviz)
+library(ggrepel)
+library(paletteer)
+library(foreign)</code></pre>
+<p>김지우님 깃헙에서 데이터를 가져왔습니다.</p>
+<pre class="r"><code>url &lt;- &quot;https://raw.githubusercontent.com/jihoo-kim/Data-Science-for-COVID-19/master/dataset/Time/TimeProvince.csv&quot;
+
+data.region &lt;- read_csv(url)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   date = col_date(format = &quot;&quot;),
+##   time = col_double(),
+##   province = col_character(),
+##   confirmed = col_double(),
+##   released = col_double(),
+##   deceased = col_double()
+## )</code></pre>
+<p>데이터가 잘 불러들여진 것 같습니다.
+변수는 date, time, provice, confirmed, released, deceased 입니다.</p>
+<p>날짜 데이터를 date 포맷으로 선언하였습니다. 이렇게 바꾸어두면 나중에 그림에서 날짜 표시할 때 편합디다.</p>
+<pre class="r"><code># cleaning data set
+data.region$date &lt;- as.Date(data.region$date,&quot;%Y-%m-%d&quot; )</code></pre>
+<p>약간 노가다이긴 하지만, 영어로 된 지역 이름을 한글로 바꾸었습니다. 원래 우리는 노가다아입니꺼.
+그리고, 한 가지 힘들었던 것이 10일 이상되었을 때부터 날짜를 셀 수 있도록 새로운 날짜(days_elapsed)를 새로 만들었는데, 아래와 같이 간단한 잔머리를 사용하였습니다. 한 가지 더 잔머리를 쓴 것은 아래 그림에서 지역 이름을 그래프 마다 붙였는데, 나중에 label 을 붙일 수 있도록 마지막 값에는 지역이름을, 나머지 값에는 NA를 집어 넣었습니다.</p>
+<pre class="r"><code>region &lt;- data.region %&gt;% 
+  select(date, province, confirmed) %&gt;% 
+  group_by(province) %&gt;% 
+  arrange(province, date) %&gt;% 
+  filter(confirmed &gt; 9) %&gt;% 
+  mutate(days_elapsed = date - min(date),
+         end_label = ifelse(date == max(date), province, NA)) %&gt;% 
+  mutate(end_label = recode(end_label,
+                            &#39;Busan&#39; = &quot;부산&quot;,
+                            &#39;Chungcheongbuk-do&#39; = &quot;충청북도&quot;,
+                            &#39;Chungcheongnam-do&#39; = &quot;충청남도&quot;,
+                            &#39;Daegu&#39; = &quot;대구&quot;,
+                            &#39;Daejeon&#39; = &quot;대전&quot;,
+                            &#39;Gangwon-do&#39; = &quot;강원도&quot;,
+                            &#39;Gwangju&#39; = &quot;광주&quot;,
+                            &#39;Gyeonggi-do&#39; = &quot;경기도&quot;,
+                            &#39;Gyeongsangbuk-do&#39; = &quot;경상북도&quot;,
+                            &#39;Gyeongsangnam-do&#39; = &quot;경상남도&quot;,
+                            &#39;Incheon&#39; = &quot;인천&quot;,
+                            &#39;Sejong&#39; = &quot;세종&quot;,
+                            &#39;Seoul&#39; = &quot;서울&quot;,
+                            &#39;Ulsan&#39; = &quot;울산&quot;,
+                            )
+         )</code></pre>
+<p>그리고 집중적으로 살펴볼 지역은 따로 인덱스를 정의해두었습니다.</p>
+<pre class="r"><code>focus_region &lt;- c(
+&quot;Seoul&quot;, 
+&quot;Gyeonggi-do&quot;,
+&quot;Gyeongsangbuk-do&quot;,
+&quot;Daegu&quot;,
+&quot;Sejong&quot;
+)</code></pre>
+<p>먼저 전국 단위에서 그림을 그렸습니다. 참, y-축은 로그변환을 하였습니다. 로그-변환된 축은 증가율이 어떤지 보는데 유용합니다. 시계열을 살펴보는 기본적인 축변환입니다.</p>
+<pre class="r"><code>region %&gt;% 
+  ggplot(mapping = aes(x = days_elapsed, y = confirmed,
+                       color = province,
+                       label = end_label,
+                       group = province)) +
+  geom_line(size = 0.8) +
+  geom_text_repel(nudge_x = 1.5,
+                  nudge_y = -0.1, 
+                  segment.color = NA) +
+  guides(color = FALSE) + 
+  # scale_color_manual(values = prismatic::clr_darken(paletteer_d(&quot;nord::aurora&quot;))) +
+  scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
+                     breaks = 2^seq(2, 11),
+                     trans = &quot;log2&quot;) +
+  labs(x = &quot;Days Since 10th Confirmed Patiens&quot;, 
+       y = &quot;Cumulative Number of Confirmed (log scale)&quot;, 
+       title = &quot;Cumulative confirmed&#39;s from COVID-19&quot;, 
+       caption = &quot;중요한경제문제연구소 / Data: ji-hoo kim&quot;) + 
+  theme(plot.title = element_text(size = rel(1.5), face = &quot;bold&quot;),
+        plot.subtitle = element_text(size = rel(1.0)),
+        axis.text.y = element_text(size = rel(1.0)),
+        axis.title.x = element_text(size = rel(1.0)),
+        axis.title.y = element_text(size = rel(1.0)),
+        axis.text.x = element_text(size = rel(1.5)),
+        legend.text = element_text(size = rel(2)) 
+  )</code></pre>
+<p><img src="/post/2020-03-23-update-on-covid19-in-south-korea_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>위 그림을 보니 대구/경북외에 다른 지역들의 증가세는 상당히 꺾여 있는 것을 볼 수 있습니다. 우리나라 의료진 대단합니다.</p>
+<p>그리고 주요 지역에 대해서 다시 그림을 그렸습니다.서울/경기도는 아직도 로그-선형입니다. 기울기를 보니, 10일마다 2배씩 증가하고 있습니다. 세종시는 잘 교육받은 공무원/공공기관 종사자들이 살고 있어서 그런지 초기의 무섭던 기세가 빠르게 잡혔습니다. 역시 우리나라 공공부분 대단합니다.</p>
+<pre class="r"><code>region %&gt;% 
+  filter(province %in% focus_region) %&gt;% 
+  ggplot(mapping = aes(x = days_elapsed, y = confirmed,
+                       color = province,
+                       label = end_label,
+                       group = province)) +
+  geom_line(size = 0.8) +
+  geom_text_repel(nudge_x = 1.5,
+                  nudge_y = -0.1, 
+                  segment.color = NA) +
+  guides(color = FALSE) + 
+  # scale_color_manual(values = prismatic::clr_darken(paletteer_d(&quot;nord::aurora&quot;))) +
+  scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
+                     breaks = 2^seq(2, 11),
+                     trans = &quot;log2&quot;) +
+  labs(x = &quot;Days Since 10th Confirmed Patiens&quot;, 
+       y = &quot;Cumulative Number of Confirmed (log scale)&quot;, 
+       title = &quot;Cumulative confirmed&#39;s from COVID-19, Selected regions&quot;, 
+       caption = &quot;중요한경제문제연구소 / Data: ji-hoo kim&quot;) + 
+  theme(plot.title = element_text(size = rel(1.5), face = &quot;bold&quot;),
+        plot.subtitle = element_text(size = rel(1.0)),
+        axis.text.y = element_text(size = rel(1.0)),
+        axis.title.x = element_text(size = rel(1.0)),
+        axis.title.y = element_text(size = rel(1.0)),
+        axis.text.x = element_text(size = rel(1.5)),
+        legend.text = element_text(size = rel(2)) 
+  )</code></pre>
+<p><img src="/post/2020-03-23-update-on-covid19-in-south-korea_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 
     </div>
@@ -103,7 +222,22 @@
     </div>
     
 
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
     
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 
     
   </body>
