@@ -1,0 +1,18 @@
+---
+title: Update on COVID19 in South Korea
+author: Seokjin Woo
+date: '2020-03-23'
+slug: update-on-covid19-in-south-korea
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+# Update on COVID19 in South Korea by Region
+
+지역별로 COVID19 확진자 동향을 그려보았습니다.
+
+- 자료를 읽고
+- 클리닝을 하고
+
