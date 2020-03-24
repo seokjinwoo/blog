@@ -27,14 +27,16 @@ if (!(Encoding(search_terms ) == "UTF-8")) {
 }
 
 output_results <- gtrends(keyword = search_terms, geo = "KR", time = "today 3-m")
+
+output_results2 <- read_csv("multiTimeline.csv")
 ```
 
 
-그래프로 시각화를 해보았습니다.
+그래프로 시각화를 해보았습니다. 3월 초에 피크였다가 살살 내려가고 있군요. 아마 공적 마스크 판매가 어느 정도 안정화 시키는 효과가 있는 것 같습니다. 
 
 ```{r}
 output_results %>% 
-  .$interest_over_time %>% 
+  .$interest_over_time %>%
   ggplot(aes(x = as.Date(date) , y = as.numeric(hits))) + 
   geom_area(fill = "lightblue", alpha = 0.8) + 
   geom_line(color = "lightblue") + 
@@ -43,4 +45,17 @@ output_results %>%
   theme_minimal()
 
 ```
+
+이번에는 손으로 "마스크"를 검색해서 다운 받은 자료를 이용해서 다시 그려보았습니다. 모양은 약간 다른데, 추세는 얼추 비슷하군요.
+
+```{r}
+output_results2 %>% 
+  ggplot(aes(x = as.Date(date) , y = as.numeric(hit))) + 
+  geom_area(fill = "lightblue", alpha = 0.8) + 
+  geom_line(color = "lightblue") + 
+  scale_x_date(date_labels = "%b %d", breaks = "1 week") + 
+  labs( x = "date", y = "hits", title = "Google Trends for Mask" ) + 
+  theme_minimal()
+```
+
 

@@ -25,10 +25,12 @@ if (!(Encoding(search_terms ) == &quot;UTF-8&quot;)) {
     search_terms  &lt;- iconv(search_terms , &quot;&quot;, &quot;UTF-8&quot;, sub = &quot;byte&quot;)
 }
 
-output_results &lt;- gtrends(keyword = search_terms, geo = &quot;KR&quot;, time = &quot;today 3-m&quot;)</code></pre>
-<p>그래프로 시각화를 해보았습니다.</p>
+output_results &lt;- gtrends(keyword = search_terms, geo = &quot;KR&quot;, time = &quot;today 3-m&quot;)
+
+output_results2 &lt;- read_csv(&quot;multiTimeline.csv&quot;)</code></pre>
+<p>그래프로 시각화를 해보았습니다. 3월 초에 피크였다가 살살 내려가고 있군요. 아마 공적 마스크 판매가 어느 정도 안정화 시키는 효과가 있는 것 같습니다.</p>
 <pre class="r"><code>output_results %&gt;% 
-  .$interest_over_time %&gt;% 
+  .$interest_over_time %&gt;%
   ggplot(aes(x = as.Date(date) , y = as.numeric(hits))) + 
   geom_area(fill = &quot;lightblue&quot;, alpha = 0.8) + 
   geom_line(color = &quot;lightblue&quot;) + 
@@ -36,4 +38,13 @@ output_results &lt;- gtrends(keyword = search_terms, geo = &quot;KR&quot;, time 
   labs( x = &quot;date&quot;, y = &quot;hits&quot;, title = &quot;Google Trends for Mask&quot; ) + 
   theme_minimal()</code></pre>
 <p><img src="/post/2020-03-24-google-trend-for-mask_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>이번에는 손으로 “마스크”를 검색해서 다운 받은 자료를 이용해서 다시 그려보았습니다. 모양은 약간 다른데, 추세는 얼추 비슷하군요.</p>
+<pre class="r"><code>output_results2 %&gt;% 
+  ggplot(aes(x = as.Date(date) , y = as.numeric(hit))) + 
+  geom_area(fill = &quot;lightblue&quot;, alpha = 0.8) + 
+  geom_line(color = &quot;lightblue&quot;) + 
+  scale_x_date(date_labels = &quot;%b %d&quot;, breaks = &quot;1 week&quot;) + 
+  labs( x = &quot;date&quot;, y = &quot;hits&quot;, title = &quot;Google Trends for Mask&quot; ) + 
+  theme_minimal()</code></pre>
+<p><img src="/post/2020-03-24-google-trend-for-mask_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
