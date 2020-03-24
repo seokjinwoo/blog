@@ -116,7 +116,7 @@ region %>%
   scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
                      breaks = 2^seq(2, 13),
                      trans = "log2") +
-  labs(x = "Days Since 10th Confirmed Patiens", 
+  labs(x = "Days Since 10th Confirmed Patients", 
        y = "Cumulative Number of Confirmed (log scale)", 
        title = "Cumulative confirmed's from COVID-19", 
        caption = "중요한경제문제연구소 / Data: ji-hoo kim") + 
@@ -155,7 +155,7 @@ region %>%
   scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
                      breaks = 2^seq(2, 13),
                      trans = "log2") +
-  labs(x = "Days Since 10th Confirmed Patiens", 
+  labs(x = "Days Since 10th Confirmed Patients", 
        y = "Cumulative Number of Confirmed (log scale)", 
        title = "Cumulative confirmed's from COVID-19, Selected regions", 
        caption = "중요한경제문제연구소 / Data: ji-hoo kim") + 
