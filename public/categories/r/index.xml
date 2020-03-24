@@ -6,10 +6,20 @@
     <description>Recent content in R on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 24 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Google Trend for Mask</title>
+      <link>/2020/03/24/google-trend-for-mask/</link>
+      <pubDate>Tue, 24 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/03/24/google-trend-for-mask/</guid>
+      <description>마스크 검색동향mask로 뜬금없지만 검색을 해보았습니다. 한글로 ’마스크’를 넣어보니, 인코딩 문제인 것 같은데 gtrends 함수에서 에러를 내더군요. 큰 의미는 없지만 그냥 영어로 mask 를 넣었습니다. 인코딩을 다양하게 시도해보았는데, 잘 안됩디다. 나중에 다시 찬찬히 해보아야 겠어요.
+if (! require(&amp;#39;gtrendsR&amp;#39;)) install.packages(&amp;#39;gtrendsR&amp;#39;)library(gtrendsR) library(tidyverse)search_terms &amp;lt;- &amp;quot;mask&amp;quot;if (!(Encoding(search_terms ) == &amp;quot;UTF-8&amp;quot;)) {search_terms &amp;lt;- iconv(search_terms , &amp;quot;&amp;quot;, &amp;quot;UTF-8&amp;quot;, sub = &amp;quot;byte&amp;quot;)}output_results &amp;lt;- gtrends(keyword = search_terms, geo = &amp;quot;KR&amp;quot;, time = &amp;quot;today 3-m&amp;quot;)그래프로 시각화를 해보았습니다.</description>
+    </item>
     
     <item>
       <title>Update on COVID19 in South Korea</title>

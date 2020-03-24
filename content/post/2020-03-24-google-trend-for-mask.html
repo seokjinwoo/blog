@@ -1,0 +1,39 @@
+---
+title: Google Trend for Mask
+author: Seokjin Woo
+date: '2020-03-24'
+slug: google-trend-for-mask
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+
+<div id="마스크-검색동향" class="section level1">
+<h1>마스크 검색동향</h1>
+<p>mask로 뜬금없지만 검색을 해보았습니다. 한글로 ’마스크’를 넣어보니, 인코딩 문제인 것 같은데 gtrends 함수에서 에러를 내더군요. 큰 의미는 없지만 그냥 영어로 mask 를 넣었습니다. 인코딩을 다양하게 시도해보았는데, 잘 안됩디다. 나중에 다시 찬찬히 해보아야 겠어요.</p>
+<pre class="r"><code>if (! require(&#39;gtrendsR&#39;)) install.packages(&#39;gtrendsR&#39;)
+library(gtrendsR) 
+library(tidyverse)
+
+
+search_terms &lt;- &quot;mask&quot;
+
+if (!(Encoding(search_terms ) == &quot;UTF-8&quot;)) {
+    search_terms  &lt;- iconv(search_terms , &quot;&quot;, &quot;UTF-8&quot;, sub = &quot;byte&quot;)
+}
+
+output_results &lt;- gtrends(keyword = search_terms, geo = &quot;KR&quot;, time = &quot;today 3-m&quot;)</code></pre>
+<p>그래프로 시각화를 해보았습니다.</p>
+<pre class="r"><code>output_results %&gt;% 
+  .$interest_over_time %&gt;% 
+  ggplot(aes(x = as.Date(date) , y = as.numeric(hits))) + 
+  geom_area(fill = &quot;lightblue&quot;, alpha = 0.8) + 
+  geom_line(color = &quot;lightblue&quot;) + 
+  scale_x_date(date_labels = &quot;%b %d&quot;, breaks = &quot;1 week&quot;) + 
+  labs( x = &quot;date&quot;, y = &quot;hits&quot;, title = &quot;Google Trends for Mask&quot; ) + 
+  theme_minimal()</code></pre>
+<p><img src="/post/2020-03-24-google-trend-for-mask_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>

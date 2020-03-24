@@ -1,0 +1,46 @@
+---
+title: Google Trend for Mask
+author: Seokjin Woo
+date: '2020-03-24'
+slug: google-trend-for-mask
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+# 마스크 검색동향
+
+mask로 뜬금없지만 검색을 해보았습니다. 한글로 '마스크'를 넣어보니, 인코딩 문제인 것 같은데 gtrends 함수에서 에러를 내더군요. 큰 의미는 없지만 그냥 영어로 mask 를 넣었습니다. 인코딩을 다양하게 시도해보았는데, 잘 안됩디다. 나중에 다시 찬찬히 해보아야 겠어요.
+
+```{r, warning=FALSE, message=FALSE}
+if (! require('gtrendsR')) install.packages('gtrendsR')
+library(gtrendsR) 
+library(tidyverse)
+
+
+search_terms <- "mask"
+
+if (!(Encoding(search_terms ) == "UTF-8")) {
+    search_terms  <- iconv(search_terms , "", "UTF-8", sub = "byte")
+}
+
+output_results <- gtrends(keyword = search_terms, geo = "KR", time = "today 3-m")
+```
+
+
+그래프로 시각화를 해보았습니다.
+
+```{r}
+output_results %>% 
+  .$interest_over_time %>% 
+  ggplot(aes(x = as.Date(date) , y = as.numeric(hits))) + 
+  geom_area(fill = "lightblue", alpha = 0.8) + 
+  geom_line(color = "lightblue") + 
+  scale_x_date(date_labels = "%b %d", breaks = "1 week") + 
+  labs( x = "date", y = "hits", title = "Google Trends for Mask" ) + 
+  theme_minimal()
+
+```
+
