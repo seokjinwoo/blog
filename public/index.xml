@@ -29,7 +29,7 @@ if (! require(&amp;#39;gtrendsR&amp;#39;)) install.packages(&amp;#39;gtrendsR&am
       <guid>/2020/03/23/update-on-covid19-in-south-korea/</guid>
       <description>Update on COVID19 in South Korea by Region지역별로 COVID19 확진자 동향을 그려보았습니다.
 일단 필요한 라이브러리들을 로딩하였습니다. 코딩을 다양하게 시도하다보니 약간 뒤죽박죽입니다.
-rm(list = ls())library(tidyverse)library(lubridate)library(here)library(janitor)library(socviz)library(ggrepel)library(paletteer)library(foreign)김지우님 깃헙에서 데이터를 가져왔습니다.
+rm(list = ls())library(tidyverse)library(lubridate)library(here)library(janitor)library(socviz)library(ggrepel)library(paletteer)library(foreign)김지후님 깃헙에서 데이터를 가져왔습니다.
 url &amp;lt;- &amp;quot;https://raw.githubusercontent.com/jihoo-kim/Data-Science-for-COVID-19/master/dataset/Time/TimeProvince.csv&amp;quot;data.region &amp;lt;- read_csv(url)## Parsed with column specification:## cols(## date = col_date(format = &amp;quot;&amp;quot;),## time = col_double(),## province = col_character(),## confirmed = col_double(),## released = col_double(),## deceased = col_double()## )데이터가 잘 불러들여진 것 같습니다.</description>
     </item>
     
