@@ -1,0 +1,92 @@
+---
+title: 소득인정액이란?
+author: Seokjin Woo
+date: '2020-04-01'
+slug: 소득인정액이란
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+
+<div id="소득인정액에-대해서-알려주마" class="section level1">
+<h1>소득인정액에 대해서 알려주마</h1>
+<p><code>국민기초생활보장법 제2조(정의)의 9항</code>을 보면</p>
+<blockquote>
+<p>“소득인정액”이란 보장기관이 급여의 결정 및 실시 등에 사용하기 위하여 산출한 개별가구의 소득평가액과 재산의 소득환산액을 합산한 금액을 말한다.</p>
+</blockquote>
+<p>이렇게 정의되어 있다.</p>
+<p>그러니까, 다음과 같이 소득인정액 AI 을 써 볼 수 있다.</p>
+<p><span class="math inline">\(AI = IE + IA\)</span></p>
+<ul>
+<li><span class="math inline">\(AI\)</span>: 소득인정액</li>
+<li><span class="math inline">\(IE\)</span>: 소득평가액</li>
+<li><span class="math inline">\(IA\)</span>: 재산의 소득환산액</li>
+</ul>
+<p><code>동법 6조3</code>은 <strong>소득인정액</strong>의 산정을 규정하고 있다.</p>
+<p>일단 다음의 소득을 합하여 <strong>소득평가액</strong>을 계산한다.</p>
+<ol style="list-style-type: decimal">
+<li>근로소득: 그래, 니네가 직장에서 번 돈이다.</li>
+<li>사업소득: 이건 사업해선 번 돈이다(매출 아니다)</li>
+<li>재산소득: 약간 까리한데, 임대사업자 소득은 사업소득이나 여기에 포함되어 있다.</li>
+<li>이전소득: 이건 사적/공적 이전소득</li>
+</ol>
+<p>이렇게 합해진 데서 정해진 금액을 차감할 수 있다. 다음의 조건에 맞으면 된다.</p>
+<ul>
+<li>장애, 질병, 양육 등 가구 특성에 따른 지출요인</li>
+<li>근로 유인을 위한 요인</li>
+<li>그 밖의 추가지출 요인</li>
+</ul>
+<p>위 항목을 차감하고 나면 소득평가액(<span class="math inline">\(IE\)</span>)가 결정된다. 그러니까 <span class="math inline">\(IE\)</span>는 아래와 같이 쓸 수 있다.</p>
+<p><span class="math inline">\(IE = (I_w + I_b + I_a + I_t) - (C_d + C_w + C_o)\)</span></p>
+<p>그 다음은 <strong>재산의 소득환산액</strong>을 산출해보자.</p>
+<ol style="list-style-type: decimal">
+<li>일반재산</li>
+<li>금융재산</li>
+<li>자동차</li>
+</ol>
+<p>위 내역을 반영하는데, 개별가구의 재산가<strong>액</strong>에서 기본재산액 및 부채를 뺀 금액에 소득환산율을 곱해서 정한다.</p>
+<p>그러니까, 일반적으로 다음과 같이 재산의 소득환산액이 결정된다.</p>
+<p><span class="math inline">\(IA = [ (A_g + A_m + A_c )-D_b - D_d ] \times \alpha\)</span></p>
+<p>여기에서 <span class="math inline">\(\alpha\)</span> 는 재산 종류마다 다르게 적용될 수 있다.</p>
+<hr />
+<p>구체적으로는 <strong>국민기초생활 보장법산 재산의 소득환산율 고시</strong>에 따라 정하고 있다(보건복지부 고시).</p>
+<center>
+<table>
+<thead>
+<tr class="header">
+<th>주거용 재산</th>
+<th>일반재산</th>
+<th>금융재산</th>
+<th>승용차</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>월 1.04%</td>
+<td>월 4.17%</td>
+<td>월 6.26%</td>
+<td>월 100%</td>
+</tr>
+</tbody>
+</table>
+</center>
+<ul>
+<li>법상으로 보면 재산가액에서 부채와 기본공제액을 제한 후에 소득환산율을 곱하도록 되어 있는데, 소득환산율과 관련된 고시를 보면 각 재산별로 소득환산율을 적용하도록 되어 있어 문가상으로 보면 시행령과 고시의 불일치가 발생하고 있다. 이를 시정하는 방법은 각 재산별로 부채 및 공제를 적용하여 해당 재산의 소득환산율을 곱해서 계산해야 한다(<code>기초생보 시행령 제5조의 4</code>)</li>
+</ul>
+<p>현재 논의되고 있는 소득인정액은 아마도 이걸 준용해서 결정될 것 같다.</p>
+<p>포함 소득은</p>
+<ul>
+<li>소득평가액</li>
+<li>주거용 재산</li>
+<li>일반재산</li>
+</ul>
+<p>까지 포함하고</p>
+<ul>
+<li>금융자산</li>
+<li>승용차</li>
+</ul>
+<p>는 제외하는 방향으로 논의가 진행되고 있는 것 같다.</p>
+</div>
