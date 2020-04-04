@@ -18,7 +18,7 @@ tags:
 
 아래 그림을 보면 알 수 있지만, 지역가입자 중 하위 70% 정도의 경계점을 찾으면 보험료가 대략 11만원 정도이다. 경계점으로 발표된 25만원은 상위 90%를 훌쩍 넘어선다.
 
-![](/post/2020-04-04-nhis-premiums-for-regionals_files/healthcare.png)
+![](/post/2020-04-04-nhis-premiums-for-regionals_files/healthcare.png){ width=95% }
 
 하여튼, 뭔가 다른 작업을 한 것 같은데, 지금으로서는 알 수가 없다. 건보내 혹은 건보외에서 작업한 박사님들께서 한 번 시원하게 설명해주시면 좋겠다.
 
