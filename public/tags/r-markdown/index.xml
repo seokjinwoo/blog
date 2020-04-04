@@ -6,10 +6,21 @@
     <description>Recent content in R Markdown on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NHIS premiums for regionals</title>
+      <link>/2020/04/04/nhis-premiums-for-regionals/</link>
+      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/04/nhis-premiums-for-regionals/</guid>
+      <description>지역가입자 건보료 분포이번 재난지원금 지원 기준이 건보료로 정해짐에 따라서 과연 70%가 어느 선인가를 살펴보고자 하였다.
+직장은 개인단위로 납부하게 되어 있는데, 현재 가구 단위로 기준이 발표되어 있기 때문에 개인건보료를 이용해서는 가구단위 기준으로 환산하는 작업이 기술적으로 어렵다. 단순하게 계산을 해도 가구별로 개인 건보료를 합치고, 이를 나래비를 세우든, 아니면 균등화 작업을 해서 나래비를 세우든 해야하는데, 현재 스코어 가구별로 합치는 작업은 일단은 불가능하다.
+지역가입자의 경우는 이미 가구단위로 부과가 되고 있기 때문에 이를 살펴보는 것은 그렇게 어렵지 않다.</description>
+    </item>
     
     <item>
       <title>소득인정액이란?</title>
