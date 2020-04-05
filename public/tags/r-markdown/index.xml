@@ -6,10 +6,23 @@
     <description>Recent content in R Markdown on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Characteristics of COVID-19 Patients</title>
+      <link>/2020/04/05/characteristics-of-covid-19-patients/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/05/characteristics-of-covid-19-patients/</guid>
+      <description>환자들 특성에 대해서는 그다지 알려져 있지 않은 것 같아서 조금씩 살펴보고 있다.
+아직 환자 자료에 대한 정보가 완전하진 않은 것 같지만, 현재 있는 자료를 가지고 특성 몇가지를 살펴보았다. 자료는 ji-hoo kim의 깃헙자료를 사용하였다.
+먼저, 1월, 2월, 3월(4월은 일단 3월에 포함시켰다) 별로 어떤 연령의 사람들이 확진을 받고 있는지 살펴보았다.
+1월에는 20대와 50대가 압도적이었는데, 2월이 되면서부터 점차 고령측으로 이동하다가, 3월이 되면 고령층에서 확진되는 경향이 강해졌음을 알 수 있다.
+이를 다시 성별로 구분해보았다.</description>
+    </item>
     
     <item>
       <title>NHIS premiums for regionals</title>
