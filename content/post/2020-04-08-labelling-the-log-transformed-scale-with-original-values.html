@@ -43,31 +43,33 @@ bysort id: gen country_lab = countryregion if date_100 == _N
 <li>5일에 2배, 10일에 2배, 20일에 2배가 되는 가이드 선을 넣어주었다. 여기에서 주의할 점은 일단 로그-스케일에서 직선을 계산하고, 이걸 다시 <code>exp()</code>에 넣어주어 로그-변환할 때 문제가 없도록 하는 것이다.</li>
 </ol>
 <p>이렇게 만든 코드가 아래와 같다.</p>
-<pre><code>local y = ln(100)
-local opt = &quot;mlabel(country_lab) msize(tiny)  lcolor(%40) mcolor(%40) mlabsize(tiny)&quot;
-
+<pre><code>local ylabel = &quot;200 400 800 1600 3200 6400 12800 25600 51200 102400  204800  409600&quot;
+local opt = &quot;mlabel(country_lab) msize(tiny)  lcolor(%30) mcolor(%30) mlabsize(tiny)&quot;
+        
 twoway ///
-    (function y = .34657359*x + ln(100), range(0 20) lcolor(gs13))  ///
-    (function y = .13862944*x + ln(100), range(0 50)  lcolor(gs13)) ///
-    (function y = .06931472*x + ln(100), range(0 70)  lcolor(gs13))  ///
-    (function y = .034657365*x + ln(100), range(0 70)  lcolor(gs13)) ///
-    (connected ln_confirmed date_100 if countryregion == &quot;South Korea&quot;, sort mlabel(country_lab) msize(tiny)  mcolor(blue) mlabcolor(blue) lcolor(blue)) ///
-    (connected ln_confirmed date_100 if countryregion == &quot;Japan&quot;, sort `opt&#39; ) ///
-    (connected ln_confirmed date_100 if countryregion == &quot;China&quot;, sort `opt&#39;) ///
-    (connected ln_confirmed date_100 if countryregion == &quot;UK&quot;, sort `opt&#39;) ///
-    (connected ln_confirmed date_100 if countryregion == &quot;Italy&quot;, sort  `opt&#39;) ///
-    (connected ln_confirmed date_100 if countryregion == &quot;Spain&quot;, sort  `opt&#39;) ///
-    (connected ln_confirmed date_100 if countryregion == &quot;Switzerland&quot;, sort  `opt&#39;) ///
-    (connected ln_confirmed date_100 if countryregion == &quot;US&quot;, sort  `opt&#39;) , ///
-    legend(off) yline(`y&#39;, lpattern(dash) ) ylab(`y_log&#39;   `y&#39; &quot;100th case&quot; ,  labsize(small) ang(h) grid) ///
+    (function y = exp( 0.34657359*x + ln(100) ) , range(0 25) lcolor(gs13))  ///
+    (function y = exp(.13862944*x + ln(100)), range(0 50)  lcolor(gs13)) ///
+    (function y = exp(.06931472*x + ln(100)), range(0 70)  lcolor(gs13))  ///
+    (function y = exp(.034657365*x + ln(100)), range(0 75)  lcolor(gs13)) ///
+    (connected confirmed date_100 if countryregion == &quot;South Korea&quot;, sort mlabel(country_lab) msize(tiny)  mcolor(blue) mlabcolor(blue) lcolor(blue))   ///
+    (connected confirmed date_100 if countryregion == &quot;Japan&quot;, sort `opt&#39;  lcolor(red) mcolor(red)) ///
+    (connected confirmed date_100 if countryregion == &quot;China&quot;, sort `opt&#39;) ///
+    (connected confirmed date_100 if countryregion == &quot;UK&quot;, sort `opt&#39;) ///
+    (connected confirmed date_100 if countryregion == &quot;Italy&quot;, sort  `opt&#39;) ///
+    (connected confirmed date_100 if countryregion == &quot;Spain&quot;, sort  `opt&#39;) ///
+    (connected confirmed date_100 if countryregion == &quot;Switzerland&quot;, sort  `opt&#39;) ///
+    (connected confirmed date_100 if countryregion == &quot;US&quot;, sort  `opt&#39;) , ///
+    yscale(log) ylab(`ylabel&#39; 100 &quot;100th case&quot;, ang(h) format(%9.0gc) grid) ///
     xlab(0(5)80, grid) ///
+    legend(off) ///
+    scheme(s1color) ///
     xtitle(&quot;days since 100th confirmed case&quot;) ytitle(&quot;no. of confirmed (log-scale)&quot;) ///
-    note(&quot;Source: JHU Github&quot;) ///
-    scheme(s1color)     ///
-    text(12. 15 &quot;double every 2 days&quot;, size(tiny) color(%30)) ///
-    text(12. 50 &quot;double every 5 days&quot;, size(tiny) color(%30)) ///
-    text(9 70 &quot;double every 10 days&quot;, size(tiny) color(%30)) ///
-    text(7 75 &quot;double every 20 days&quot;, size(tiny) color(%30)) </code></pre>
+    note(&quot;Source: JHU Github&quot;)  ///
+    text(210000 15 &quot;double every 2 days&quot;, size(tiny) color(%30)) ///
+    text(120000 50 &quot;double every 5 days&quot;, size(tiny) color(%30)) ///
+    text(14000 70 &quot;double every 10 days&quot;, size(tiny) color(%30)) ///
+    text(1600 75 &quot;double every 20 days&quot;, size(tiny) color(%30)) 
+    </code></pre>
 <p>위 코드를 실행하면 아래와 같은 그림을 얻을 수 있다.</p>
-<p><img src="/post/2020-04-08-labelling-the-log-transformed-scale-with-original-values_files/country_log.png" style="width:105.0%" /></p>
+<p><img src="/post/2020-04-08-labelling-the-log-transformed-scale-with-original-values_files/country_log.png" style="width:100.0%" /></p>
 <p><strong>Self-Isolated, We Stata!</strong></p>

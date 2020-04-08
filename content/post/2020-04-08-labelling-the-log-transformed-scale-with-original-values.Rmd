@@ -54,37 +54,39 @@ bysort id: gen country_lab = countryregion if date_100 == _N
 이렇게 만든 코드가 아래와 같다.
 
 ```
-local y = ln(100)
-local opt = "mlabel(country_lab) msize(tiny)  lcolor(%40) mcolor(%40) mlabsize(tiny)"
-
+local ylabel = "200 400 800 1600 3200 6400 12800 25600 51200 102400  204800  409600"
+local opt = "mlabel(country_lab) msize(tiny)  lcolor(%30) mcolor(%30) mlabsize(tiny)"
+		
 twoway ///
-	(function y = .34657359*x + ln(100), range(0 20) lcolor(gs13))  ///
-	(function y = .13862944*x + ln(100), range(0 50)  lcolor(gs13)) ///
-	(function y = .06931472*x + ln(100), range(0 70)  lcolor(gs13))  ///
-	(function y = .034657365*x + ln(100), range(0 70)  lcolor(gs13)) ///
-	(connected ln_confirmed date_100 if countryregion == "South Korea", sort mlabel(country_lab) msize(tiny)  mcolor(blue) mlabcolor(blue) lcolor(blue)) ///
-	(connected ln_confirmed date_100 if countryregion == "Japan", sort `opt' ) ///
-	(connected ln_confirmed date_100 if countryregion == "China", sort `opt') ///
-	(connected ln_confirmed date_100 if countryregion == "UK", sort `opt') ///
-	(connected ln_confirmed date_100 if countryregion == "Italy", sort  `opt') ///
-	(connected ln_confirmed date_100 if countryregion == "Spain", sort  `opt') ///
-	(connected ln_confirmed date_100 if countryregion == "Switzerland", sort  `opt') ///
-	(connected ln_confirmed date_100 if countryregion == "US", sort  `opt') , ///
-	legend(off) yline(`y', lpattern(dash) ) ylab(`y_log'   `y' "100th case" ,  labsize(small) ang(h) grid) ///
+	(function y = exp( 0.34657359*x + ln(100) ) , range(0 25) lcolor(gs13))  ///
+	(function y = exp(.13862944*x + ln(100)), range(0 50)  lcolor(gs13)) ///
+	(function y = exp(.06931472*x + ln(100)), range(0 70)  lcolor(gs13))  ///
+	(function y = exp(.034657365*x + ln(100)), range(0 75)  lcolor(gs13)) ///
+	(connected confirmed date_100 if countryregion == "South Korea", sort mlabel(country_lab) msize(tiny)  mcolor(blue) mlabcolor(blue) lcolor(blue))	///
+	(connected confirmed date_100 if countryregion == "Japan", sort `opt'  lcolor(red) mcolor(red)) ///
+	(connected confirmed date_100 if countryregion == "China", sort `opt') ///
+	(connected confirmed date_100 if countryregion == "UK", sort `opt') ///
+	(connected confirmed date_100 if countryregion == "Italy", sort  `opt') ///
+	(connected confirmed date_100 if countryregion == "Spain", sort  `opt') ///
+	(connected confirmed date_100 if countryregion == "Switzerland", sort  `opt') ///
+	(connected confirmed date_100 if countryregion == "US", sort  `opt') , ///
+	yscale(log) ylab(`ylabel' 100 "100th case", ang(h) format(%9.0gc) grid) ///
 	xlab(0(5)80, grid) ///
+	legend(off) ///
+	scheme(s1color) ///
 	xtitle("days since 100th confirmed case") ytitle("no. of confirmed (log-scale)") ///
-	note("Source: JHU Github") ///
-	scheme(s1color) 	///
-	text(12. 15 "double every 2 days", size(tiny) color(%30)) ///
-	text(12. 50 "double every 5 days", size(tiny) color(%30)) ///
-	text(9 70 "double every 10 days", size(tiny) color(%30)) ///
-	text(7 75 "double every 20 days", size(tiny) color(%30)) 
+	note("Source: JHU Github")  ///
+	text(210000 15 "double every 2 days", size(tiny) color(%30)) ///
+	text(120000 50 "double every 5 days", size(tiny) color(%30)) ///
+	text(14000 70 "double every 10 days", size(tiny) color(%30)) ///
+	text(1600 75 "double every 20 days", size(tiny) color(%30)) 
+	
 ```
 
 
 위 코드를 실행하면 아래와 같은 그림을 얻을 수 있다.
 
-![](/post/2020-04-08-labelling-the-log-transformed-scale-with-original-values_files/country_log.png){ width=105% }
+![](/post/2020-04-08-labelling-the-log-transformed-scale-with-original-values_files/country_log.png){width=100%}
 
 
 **Self-Isolated, We Stata!**
