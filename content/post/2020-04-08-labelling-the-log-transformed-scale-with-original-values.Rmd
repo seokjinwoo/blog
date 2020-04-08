@@ -1,0 +1,90 @@
+---
+title: Labelling the log-transformed scale with original values
+author: Seokjin Woo
+date: '2020-04-08'
+slug: labelling-the-log-transformed-scale-with-original-values
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+COVID-19 관련 확진자 현황을 그리다 보면 확진자 수가 국가별로 큰 차이가 난다. 이걸 한장에 다 표현하기 위해서 자주 사용되는 변환이 로그-변환이다. 예컨대, 미국 같은 경우 벌써 30만명을 넘어서고 있는데 반해, 일본은 이제서야 5천명을 돌파하였다. 이걸 한장 그림에 우겨 넣으면 미국은 그 패턴을 볼 수 있는 반면, 일본의 패턴은 살펴보기 어렵다. 
+
+로그-변환이 꼭 그림을 한장에 넣기 위해서 하는 것만은 아니다. 로그-변환을 하면 확진자 증가율이 어떤지 눈으로 비교할 수 있다. 로그-변환하였을 때 그 패턴이 선형패턴을 가지면 기하학적 추세(exponential growth)를 갖는다고 표현한다.
+
+로그-변환했을 때의 문제는, 로그를 취했을 때 그 값의 의미를 알기 어렵다는 것이다. 예컨대 1,000명은 로그-변홚면 6.9 정도 10,000명은 9.2 정도인데, 그 숫자를 보면 성장률은 가늠할 수 있어도 레벨 자체를 가늠하기는 어렵다. 
+
+그래서 로그-변환된 값에 원래 값을 대응시켜서 넣어주면 수준값을 가늠할 수 있어, 일반 독자들이 이해하기 쉬워진다. 
+
+문제는 Stata 에서 Y축을 로그 변환하고, 이걸 수준 변수로 레이블링을 해줄 필요가 있다는 것이다. 다양한 방법이 있지만 여러 단계를 거쳐 오늘 가장 간편하게 할 수 있는 방법으로 정리할 수 있게 되었다.
+
+일단 데이터를 불러들여와서 변수를 좀 정리하자. 아래 코드의 맨 아랫 부분에 있는 것은 매우 중요한 단계인데, 누적 확진자 100케이스 미만인 날짜는 버려버리고, 그 이후부터 1번부터 넘버링을 한다. 그리고 마지막 넘버에 국가 이름인 들어간 `country_lab` 이라는 변수를 만들자. 이게 나중에 곡선 마지막에 국가이름 붙일 때 사용하는 레이블 변수가 된다. 매우 유용한 테크닉이다. 
+
+```
+use covid19_long, clear
+
+egen id = group(country)
+order id country date
+
+sort id date
+xtset id date
+
+gen ln_confirmed = ln(confirmed)
+label var ln_confirmed "the logarithm of confirmed"
+
+bysort id: drop if confirmed < 100
+bysort id: gen date_100 = _n
+bysort id: gen country_lab = countryregion if date_100 == _N
+
+```
+
+이렇게 한 다음에 
+
+1. 레이블에 사용될 로칼 변수 `ylabel` 을 정의해준다. 나는 100 케이스부터 출발했으니 보기 좋게 두 배씩 되는 200, 400, 1600, 이런 레이블을 사용하였다.
+
+2. `yscale(log)` 라는 옵션을 통해서 y-축의 스케일을 로그-변환할 수 있게 전환하였다.
+
+3. ylab()에는 1에서 정의한 레이블을 달아주었다. 
+
+이렇게 하면 대체로 마무리가 되는데, 독자들의 편의를 위해
+
+4. 5일에 2배, 10일에 2배, 20일에 2배가 되는 가이드 선을 넣어주었다. 여기에서 주의할 점은 일단 로그-스케일에서 직선을 계산하고, 이걸 다시 `exp()`에 넣어주어 로그-변환할 때 문제가 없도록 하는 것이다. 
+
+이렇게 만든 코드가 아래와 같다.
+
+```
+local y = ln(100)
+local opt = "mlabel(country_lab) msize(tiny)  lcolor(%40) mcolor(%40) mlabsize(tiny)"
+
+twoway ///
+	(function y = .34657359*x + ln(100), range(0 20) lcolor(gs13))  ///
+	(function y = .13862944*x + ln(100), range(0 50)  lcolor(gs13)) ///
+	(function y = .06931472*x + ln(100), range(0 70)  lcolor(gs13))  ///
+	(function y = .034657365*x + ln(100), range(0 70)  lcolor(gs13)) ///
+	(connected ln_confirmed date_100 if countryregion == "South Korea", sort mlabel(country_lab) msize(tiny)  mcolor(blue) mlabcolor(blue) lcolor(blue)) ///
+	(connected ln_confirmed date_100 if countryregion == "Japan", sort `opt' ) ///
+	(connected ln_confirmed date_100 if countryregion == "China", sort `opt') ///
+	(connected ln_confirmed date_100 if countryregion == "UK", sort `opt') ///
+	(connected ln_confirmed date_100 if countryregion == "Italy", sort  `opt') ///
+	(connected ln_confirmed date_100 if countryregion == "Spain", sort  `opt') ///
+	(connected ln_confirmed date_100 if countryregion == "Switzerland", sort  `opt') ///
+	(connected ln_confirmed date_100 if countryregion == "US", sort  `opt') , ///
+	legend(off) yline(`y', lpattern(dash) ) ylab(`y_log'   `y' "100th case" ,  labsize(small) ang(h) grid) ///
+	xlab(0(5)80, grid) ///
+	xtitle("days since 100th confirmed case") ytitle("no. of confirmed (log-scale)") ///
+	note("Source: JHU Github") ///
+	scheme(s1color) 	///
+	text(12. 15 "double every 2 days", size(tiny) color(%30)) ///
+	text(12. 50 "double every 5 days", size(tiny) color(%30)) ///
+	text(9 70 "double every 10 days", size(tiny) color(%30)) ///
+	text(7 75 "double every 20 days", size(tiny) color(%30)) 
+```
+
+
+위 코드를 실행하면 아래와 같은 그림을 얻을 수 있다.
+
+![](/post/2020-04-08-labelling-the-log-transformed-scale-with-original-values_files/country_log.png){ width=105% }
+
+
+**Self-Isolated, We Stata!**

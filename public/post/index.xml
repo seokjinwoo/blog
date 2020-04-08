@@ -6,10 +6,20 @@
     <description>Recent content in Posts on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Labelling the log-transformed scale with original values</title>
+      <link>/2020/04/08/labelling-the-log-transformed-scale-with-original-values/</link>
+      <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/08/labelling-the-log-transformed-scale-with-original-values/</guid>
+      <description>COVID-19 관련 확진자 현황을 그리다 보면 확진자 수가 국가별로 큰 차이가 난다. 이걸 한장에 다 표현하기 위해서 자주 사용되는 변환이 로그-변환이다. 예컨대, 미국 같은 경우 벌써 30만명을 넘어서고 있는데 반해, 일본은 이제서야 5천명을 돌파하였다. 이걸 한장 그림에 우겨 넣으면 미국은 그 패턴을 볼 수 있는 반면, 일본의 패턴은 살펴보기 어렵다.
+로그-변환이 꼭 그림을 한장에 넣기 위해서 하는 것만은 아니다. 로그-변환을 하면 확진자 증가율이 어떤지 눈으로 비교할 수 있다. 로그-변환하였을 때 그 패턴이 선형패턴을 가지면 기하학적 추세(exponential growth)를 갖는다고 표현한다.</description>
+    </item>
     
     <item>
       <title>Characteristics of COVID-19 Patients</title>
