@@ -86,7 +86,8 @@ twoway ///
 
 위 코드를 실행하면 아래와 같은 그림을 얻을 수 있다.
 
-![](/post/2020-04-08-labelling-the-log-transformed-scale-with-original-values_files/country_log.png){width=100%}
-
+<center>
+![](/post/2020-04-08-labelling-the-log-transformed-scale-with-original-values_files/country_log.png){width=120%}
+</center>
 
 **Self-Isolated, We Stata!**
