@@ -6,10 +6,24 @@
     <description>Recent content in R Markdown on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>순확진자 업데이트</title>
+      <link>/2020/04/10/update-for-net-confirmed-cases/</link>
+      <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/10/update-for-net-confirmed-cases/</guid>
+      <description>기존 누진 확진자에서 완치자를 뺀 순확진자를 국가별로 플롯팅 하였습니다.
+국내적으로 보면 서울/경기/인천이 아직 달리고 있지만,순확진자는 3천명대에 진입하였습니다.
+주요 국가 중 순확진자가 감소한 국가는 우리나라와 중국입니다.
+대표적으로 잘 관리하는 것으로 알려진 싱가포르는 다시 확산 추세에 접어들었고, 일본에 근접하고 있습니다.
+대만은 세계적으로 가장 좋은 수준인데, 순확진자가 크게 감소하지는 않았습니다. 완치하는 사람만큼은 새로운 확진자가 발생하고는 있습니다.
+참, 일본과 한국은 순확진자수에 있어 골든 크로스를 보여주고 있습니다.</description>
+    </item>
     
     <item>
       <title>Labelling the log-transformed scale with original values</title>
