@@ -1,5 +1,5 @@
 ---
-title: 순확진자 업데이트
+title: 순확진자수 업데이트
 author: Seokjin Woo
 date: '2020-04-10'
 slug: update-for-net-confirmed-cases
@@ -22,4 +22,4 @@ tags:
 
 참, 일본과 한국은 순확진자수에 있어 골든 크로스를 보여주고 있습니다.
 
-![](/post/2020-04-10-update-for-net-confirmed-cases_files/netconfirmed.png){width=100%}
+![](/post/2020-04-10-update-for-net-confirmed-cases_files/netconfirmed.png){width=120%}
