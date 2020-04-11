@@ -6,10 +6,21 @@
     <description>Recent content in Posts on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>한겨레 세상읽기, 재난지원금 전향적 개선이 필요하다</title>
+      <link>/2020/04/11/%ED%95%9C%EA%B2%A8%EB%A0%88-%EC%84%B8%EC%83%81%EC%9D%BD%EA%B8%B0-%EC%9E%AC%EB%82%9C%EC%A7%80%EC%9B%90%EA%B8%88-%EC%A0%84%ED%96%A5%EC%A0%81-%EA%B0%9C%EC%84%A0%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%98%EB%8B%A4/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/11/%ED%95%9C%EA%B2%A8%EB%A0%88-%EC%84%B8%EC%83%81%EC%9D%BD%EA%B8%B0-%EC%9E%AC%EB%82%9C%EC%A7%80%EC%9B%90%EA%B8%88-%EC%A0%84%ED%96%A5%EC%A0%81-%EA%B0%9C%EC%84%A0%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%98%EB%8B%A4/</guid>
+      <description>지난주 긴급재난지원금의 대상과 규모가 발표되었다. 규모는 4인가구 기준 100만원이고, 대상은 하위 70%까지로 정해졌다. 이번 제도는 아무리 생각해보아도 좋은 결정이라고 보기 어렵다.
+먼저, 정부는 지급 대상에 있어 선별 지원을 선택했다. 납세자의 세금을 지출할 때에는 효과가 담보될 수 있도록 대상을 잘 조준해야 한다. 그런 의미에서 선별 지원은 정부 입장에서는 불가피한 선택으로 이해할 수 있다.
+하지만 선별 지원의 기준이 왜 70%가 되어야 하는지는 이해하기 어렵다. 선별 지원을 한다면 좀 더 어려운 50% 정도에 집중하는 것이 적절하다.</description>
+    </item>
     
     <item>
       <title>순확진자수 업데이트</title>
