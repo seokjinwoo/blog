@@ -66,4 +66,4 @@ twoway `gr' ///
 
 그러면 아래와 같은 그림이 나옵니다.
 
-![](/post/2020-04-10-update-for-net-confirmed-cases_files/netconfirmed2.png){width=110%}
+![](/post/2020-04-10-update-for-net-confirmed-cases_files/netconfirmed2.png){width=100%}
