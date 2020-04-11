@@ -24,7 +24,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "https://econbigdata.tistory.com/"
 
 [params]
-    description = "A website built through Hugo and blogdown."
+    description = "General Specialist's Repo."
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.12.0"
