@@ -23,6 +23,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     name = "빅데이터블로그"
     url = "https://econbigdata.tistory.com/"
 
+[[menu.main]]
+    name = "facebook"
+    url = "https://www.facebook.com/seokjin.woo"
+
 [params]
     description = "General Specialist's Repo."
 
