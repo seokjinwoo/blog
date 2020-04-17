@@ -6,10 +6,24 @@
     <description>Recent content in Posts on General Specialist&#39;s Repository</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>3월 고용동향</title>
+      <link>/2020/04/17/update-for-employment/</link>
+      <pubDate>Fri, 17 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/17/update-for-employment/</guid>
+      <description>금일 통계청 고용동향이 발표되었다.
+지난 번에 발표되었던 동향은 2월 14일까지의 동향이었기 때문에 31번 확진자 이후의 코로나 19사태로 인한 파급 효과가 포함되지 않은 것이었다.
+그렇기 때문에 이번 고용동향 발표가 31번 확진자 이후의 실물경제에 미친 효과를 반영하고 있기 때문에 정책적으로도 중요하다.
+기본적으로 경활조사이기 때문에 노동공급측면의 조사라서, 실제 고용과는 차이가 날 수 있다.
+두 개의 그림을 그렸다.
+취업자 규모의 월별 동향추세를 통제한 취업자 규모의 동향1번은 전년 동월 대비 취업자 증감을, 2번은 전년도 추세를 자연증분으로 보았을 때, 이 추세를 통제하고 난 이후의 취업자 증감을 그렸다.</description>
+    </item>
     
     <item>
       <title>Animated new confirmed</title>
