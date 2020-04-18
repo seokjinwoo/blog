@@ -17,7 +17,11 @@ tags:
 
 * K-MOOC 를 통해 동영상 강의를 제공하고 있습니다. 텍스트 뿐만 아니라 동영상 강의를 통해서 학습할 수 있도록 하였습니다. 수강신청 기간에 들으시면 학점 혹은 수료증을 받을 수도 있는 것으로 알고 있습니다.
 
+
+
 <center>
+[K-MOOC Stata 동영상 강의](https://www.dropbox.com/s/wdkj2dqy17uxeib/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EB%A1%A0_%ED%99%8D%EB%B3%B4%EC%98%81%EC%83%81.mp4?dl=0)
+
 **코로나 사태가 잠잠해지면 특강으로 찾아뵙겠습니다**
 </center>
 
