@@ -1,5 +1,5 @@
 ---
-title: employment change by gender
+title: 성별에 따른 3월 고용충격
 author: Seokjin Woo
 date: '2020-04-20'
 slug: employment-change-by-gender
