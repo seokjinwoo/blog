@@ -12,20 +12,6 @@
     
     
     <item>
-      <title>성별에 따른 3월 고용충격</title>
-      <link>/2020/04/20/employment-change-by-gender/</link>
-      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/04/20/employment-change-by-gender/</guid>
-      <description>통계청을 뒤져보니 계절조정된 취업자 시계열이 있어서 전달 대비 고용변화를 그려보았다.
-그리고 성별로 나누어서 다시 그렸다.
-그러니까, 여기서 그런 것은
-\[ \Delta \tilde{E} = \tilde{E}_t - \tilde{E}_{t-1} \]
-\(\tilde{E}\) 는 계절조정된 취업자수이렇게 그런 취업자수의 분포는 다음과 같다. 아래 그림에서 색깔 칠해진 배경은 통계청에서 발표한 수축기이다. 최근 2017년 말부터 시작된 수축기는 표시하지 않았다.
-이전의 수축기, 예를 들면 글로벌 금융위기 혹은 카드사태 때와 비교하여 고용이 크게 감소했음을 쉽게 비교할 수 있다.</description>
-    </item>
-    
-    <item>
       <title>경제분석을 위한 Stata 개정판 출간</title>
       <link>/2020/04/19/stata/</link>
       <pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate>
@@ -37,6 +23,20 @@
 K-MOOC 를 통해 동영상 강의를 제공하고 있습니다. 텍스트 뿐만 아니라 동영상 강의를 통해서 학습할 수 있도록 하였습니다. 수강신청 기간에 들으시면 학점 혹은 수료증을 받을 수도 있는 것으로 알고 있습니다.
 K-MOOC Stata 동영상 강의
 코로나 사태가 잠잠해지면 특강으로 찾아뵙겠습니다</description>
+    </item>
+    
+    <item>
+      <title>성별에 따른 3월 고용충격</title>
+      <link>/2020/04/19/employment-change-by-gender/</link>
+      <pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/19/employment-change-by-gender/</guid>
+      <description>통계청을 뒤져보니 계절조정된 취업자 시계열이 있어서 전달 대비 고용변화를 그려보았다.
+그리고 성별로 나누어서 다시 그렸다.
+그러니까, 여기서 그런 것은
+\[ \Delta \tilde{E} = \tilde{E}_t - \tilde{E}_{t-1} \]
+\(\tilde{E}\) 는 계절조정된 취업자수이렇게 그런 취업자수의 분포는 다음과 같다. 아래 그림에서 색깔 칠해진 배경은 통계청에서 발표한 수축기이다. 최근 2017년 말부터 시작된 수축기는 표시하지 않았다.
+이전의 수축기, 예를 들면 글로벌 금융위기 혹은 카드사태 때와 비교하여 고용이 크게 감소했음을 쉽게 비교할 수 있다.</description>
     </item>
     
     <item>
