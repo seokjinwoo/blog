@@ -6,10 +6,22 @@
     <description>Recent content in Posts on General Specialist&#39;s Repository</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>사전투표 상수의 비밀</title>
+      <link>/2020/04/21/%EC%82%AC%EC%A0%84%EC%84%A0%EA%B1%B0-%EC%A1%B0%EC%9E%91-%EB%85%BC%EB%9E%80-%EC%A0%95%EB%A6%AC/</link>
+      <pubDate>Tue, 21 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/21/%EC%82%AC%EC%A0%84%EC%84%A0%EA%B1%B0-%EC%A1%B0%EC%9E%91-%EB%85%BC%EB%9E%80-%EC%A0%95%EB%A6%AC/</guid>
+      <description>울 아버지가 사전투표가 조작되었다고, 특히 경합지역에서 이상한 상수가 나온다고 어디 유튜브 보시고 얘기하셨다. 할아버지들 카톡에 돌아다는 것 같은데, 데이터 밥 먹는 선수로서 안들여다 볼 수 없었다.
+크게 보면 이슈가 두 가지이다.
+사전투표에서 관내/관외 비율이 경합지에서 소수점 몇 자리만 빼고 동일한 숫자가 나온다. 이거 조작의 흔적 아니냐? 이상하니 점검해보자. 프로듀스 뭐시기들도 이렇게 시작해서 나중에 조작 밝혀졌다. 어여 소송해서 사전투표함 까보자.
+사전투표와 본투표가 이렇게 차이날 수가 있느냐? 본투표만으로 했을 때 미통당이 120개 이상 먹어야 하는데 억울하다.</description>
+    </item>
     
     <item>
       <title>경제분석을 위한 Stata 개정판 출간</title>
