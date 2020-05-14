@@ -26,7 +26,7 @@ $$ \Delta \tilde{E} = \tilde{E}_t - \tilde{E}_{t-1}  $$
 
 - $\tilde{E}$ 는 계절조정된 취업자수
 
-![](/post/2020-05-13-april-employment-change_files/fig1.png)
+![](/post/2020-05-13-april-employment-change_files/fig1.png){width=100%}
 
 
 3월에는 2월에 비해 약 68만개 감소하였었는데, 4월에는 33만 8천개가 3월에 비해 감소하였다. 그러면, 2월에 비해 101만 8천개의 일자리가 없어졌다. 
