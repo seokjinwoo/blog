@@ -87,7 +87,7 @@ chart +
 퍼센트를 붙이는 것도 가능하다.
 
 
-```{r}
+```{r, message = FALSE}
 dreaded_lang %>%
   mutate(label = sprintf("%1.1f%%", pct)) %>%
   bar_chart(language, pct, highlight = "R", bar_color = "black") +
