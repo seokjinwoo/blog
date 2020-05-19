@@ -24,7 +24,7 @@ library(ggcharts)
 
 그리고 바챠트에 사용할 데이터를 만든다.
 
-```{r}
+```{r, message = FALSE}
 dreaded_lang <- tibble::tribble(
   ~language, ~pct,
   "VBA", 75.2,
@@ -44,7 +44,7 @@ dreaded_lang <- tibble::tribble(
 이렇게 만들어진 자료를 이용하여 ``bar_chart()``를 이용하여 다음과 같이 바챠트를 그리자.
 
 
-```{r}
+```{r, message = FALSE}
 chart <- dreaded_lang %>% 
   bar_chart(language, pct) %>% 
   print()
@@ -54,7 +54,7 @@ chart <- dreaded_lang %>%
 
 
 
-```{r}
+```{r, message = FALSE}
 chart +
   geom_text(aes(
     x = language,
@@ -67,7 +67,7 @@ chart +
 레이블의 위치가 기본적으로 y값의 중간에 위치하도록 되어 있기 때문에 위치를 ``hjust``를 이용해서 정렬을 해줄 수 있다.
 
 
-```{r}
+```{r, message = FALSE}
 chart +
   geom_text(aes(label = pct, hjust = -0.5)) +
   ylim(NA,100)
@@ -75,7 +75,7 @@ chart +
 
 ``hjust`` 값이 양수인 경우 바의 안쪽으로 레이블리 들어간다.
 
-```{r}
+```{r, message = FALSE}
 chart +
   geom_text(aes(label = pct, 
                 hjust = 1.2),
