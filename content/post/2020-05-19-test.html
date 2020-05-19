@@ -1,0 +1,85 @@
+---
+title: 바챠트에 레이블 붙이기
+author: Seokjin Woo
+date: '2020-05-19'
+slug: test
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+
+<p>이 포스트는 R-blogger 중 (<a href="https://thomasadventure.blog/posts/labels-ggplot2-bar-chart/)에" class="uri">https://thomasadventure.blog/posts/labels-ggplot2-bar-chart/)에</a> 게시된 내용을 정리한 것이다.</p>
+<p>논문이나 연구보고서를 작성하다보면 바챠트를 종종 사용하게 되는데,
+바에다 값을 나타내는 레이블을 잘 붙여두면 가독성이 많이 향상된다.</p>
+<p>먼저 사용할 패키지를 로딩한다.</p>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
+library(ggcharts)</code></pre>
+<p>그리고 바챠트에 사용할 데이터를 만든다.</p>
+<pre class="r"><code>dreaded_lang &lt;- tibble::tribble(
+  ~language, ~pct,
+  &quot;VBA&quot;, 75.2,
+  &quot;Objective-C&quot;, 68.7,
+  &quot;Assembly&quot;, 64.4,
+  &quot;C&quot;, 57.5,
+  &quot;PHP&quot;, 54.2,
+  &quot;Erlang&quot;, 52.6,
+  &quot;Ruby&quot;, 49.7,
+  &quot;R&quot;, 48.3,
+  &quot;C++&quot;, 48.0,
+  &quot;Java&quot;, 46.6
+)</code></pre>
+<p>이렇게 만들어진 자료를 이용하여 <code>bar_chart()</code>를 이용하여 다음과 같이 바챠트를 그리자.</p>
+<pre class="r"><code>chart &lt;- dreaded_lang %&gt;% 
+  bar_chart(language, pct) %&gt;% 
+  print()</code></pre>
+<p><img src="/post/2020-05-19-test_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>여기에다가 레이블을 붙여보자. <code>geom_text()</code> 혹은 <code>geom_label()</code>을 사용할 수 있지만, 일단 <code>geom_text()</code>를 사용해보자.</p>
+<pre class="r"><code>chart +
+  geom_text(aes(
+    x = language,
+    y = pct,
+    label = pct
+    ))</code></pre>
+<p><img src="/post/2020-05-19-test_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>레이블의 위치가 기본적으로 y값의 중간에 위치하도록 되어 있기 때문에 위치를 <code>hjust</code>를 이용해서 정렬을 해줄 수 있다.</p>
+<pre class="r"><code>chart +
+  geom_text(aes(label = pct, hjust = -0.5)) +
+  ylim(NA,100)</code></pre>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+## replace the existing scale.</code></pre>
+<p><img src="/post/2020-05-19-test_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><code>hjust</code> 값이 양수인 경우 바의 안쪽으로 레이블리 들어간다.</p>
+<pre class="r"><code>chart +
+  geom_text(aes(label = pct, 
+                hjust = 1.2),
+            color = &quot;white&quot;
+            )</code></pre>
+<p><img src="/post/2020-05-19-test_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>퍼센트를 붙이는 것도 가능하다.</p>
+<pre class="r"><code>dreaded_lang %&gt;%
+  mutate(label = sprintf(&quot;%1.1f%%&quot;, pct)) %&gt;%
+  bar_chart(language, pct, highlight = &quot;R&quot;, bar_color = &quot;black&quot;) +
+  geom_text(aes(label = label, hjust = -0.1), size = 5) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    expand = expansion()
+  ) +
+  labs(
+    x = NULL,
+    y = &quot;Percentage&quot;,
+    title = &quot;Top 10 Most Dreaded Programming Languages&quot;,
+    subtitle = &quot;*R Placed 8th*&quot;,
+    caption = &quot;Source: Stackoverflow Developer Survey 2019&quot;
+  ) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.line.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )</code></pre>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+## replace the existing scale.</code></pre>
+<p><img src="/post/2020-05-19-test_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
