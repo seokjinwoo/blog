@@ -1,0 +1,129 @@
+---
+title: R에서 자료 읽어들이기
+author: Seokjin Woo
+date: '2020-05-25'
+slug: aquire-data-into-r
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+본 블로그 내용은 아래의 링크를 번역, 요약 해 놓은 것입니다. 자세한 내용은 아래 링크로 가서 확인해주셔요.
+
+https://tutorial.guidotti.dev/a8a39/
+
+
+
+R로 불러들일 수 있는 자료는 크게 다음과 같이 나눌 수 있다.
+
+- local files (csv, dat,  등)
+- remote files
+- R packages
+- RESTful APIs
+- web scraping
+
+## local files
+
+먼저 ``mtcars``라는 기본 자료를 로드하자. 그리고, csv 파일로 쓰자. 
+
+```{r, message=FALSE}
+rm(list = ls())
+data("mtcars")
+write.csv(mtcars, file = 'mtcars.csv')
+```
+
+이렇게 쓴 자료는 다음과 같이 읽어들일 수 있다.
+
+
+```{r, message=FALSE}
+x <- read.csv('mtcars.csv')
+head(x)
+```
+
+
+## Remote files 
+
+``read.table``을 이용해서 그린 계량경제학책에 사용된 자료를 아래와 같이 불러들일 수 있다.
+
+```{r, message=FALSE}
+x <- read.table("http://people.stern.nyu.edu/wgreene/Text/Edition7/TableF5-2.txt",
+                header = TRUE)
+head(x)
+```
+
+여기에서 변수 Year와 qtr 을 이용하여 date 라는 변수를 만들 수 있다. 
+
+```{r, message=FALSE}
+library(tidyverse)
+library(zoo)
+
+x <- x %>% 
+  mutate(date = as.yearqtr(paste(Year,qtr, sep = ""),"%Y%q"))
+
+head(x)
+```
+
+
+## R 패키지
+
+R 패키지 ``quantmod``를 이용하면 다양한 금융자료를 웹에서 다운로드 받을 수 있다. 
+
+```{r, message=FALSE}
+
+if (!require("quantmod")) install.packages("quantmod")
+
+```
+
+``getSymbos``함수를 이용하면 다양한 금융자료를 로딩할 수 있다.
+
+예를 들어 **FRED** 자료를 다음과 같이 긁어 올 수 있다. 예를 들어 법인소득에 대한 과세에 대한 정보는 아래와 같이 받아올 수 있다.
+
+
+
+```{r, message=FALSE}
+x <- getSymbols(Symbols = 'A054RC1A027NBEA', src = 'FRED', auto.assign = FALSE)   
+
+tail(x)
+```
+
+간단히 다음과 같은 그림을 그릴 수도 있다.
+
+```{r}
+autoplot(x) + 
+  xlab("date") +
+  ylab("tax on corporate income")
+```
+
+
+
+
+## 웹스크레이핑
+
+```{r, message=FALSE}
+library(rvest)
+```
+
+
+
+```{r, message=FALSE}
+
+  
+  # build url
+  url <- "http://www.hani.co.kr/arti/opinion/column/945609.html"
+  
+  # sanitize url
+  url <- URLencode(url)
+  
+  # get results
+  res <- read_html(url) %>%           # get url
+    html_nodes('div.text') %>%  # select titles by css selector 
+    html_text()                       # extract text
+  
+  # return results
+ res <- str_replace_all(res, "[\r\n\t]","")
+ res[1] <- str_split(res[1], "\\.")
+ res
+  
+```
+

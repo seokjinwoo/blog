@@ -6,10 +6,23 @@
     <description>Recent content in R on General Specialist&#39;s Repository</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R에서 자료 읽어들이기</title>
+      <link>/2020/05/25/aquire-data-into-r/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/05/25/aquire-data-into-r/</guid>
+      <description>본 블로그 내용은 아래의 링크를 번역, 요약 해 놓은 것입니다. 자세한 내용은 아래 링크로 가서 확인해주셔요.
+https://tutorial.guidotti.dev/a8a39/
+R로 불러들일 수 있는 자료는 크게 다음과 같이 나눌 수 있다.
+local files (csv, dat, 등)remote filesR packagesRESTful APIsweb scrapinglocal files먼저 mtcars라는 기본 자료를 로드하자. 그리고, csv 파일로 쓰자.
+rm(list = ls())data(&amp;quot;mtcars&amp;quot;)write.csv(mtcars, file = &amp;#39;mtcars.csv&amp;#39;)이렇게 쓴 자료는 다음과 같이 읽어들일 수 있다.</description>
+    </item>
     
     <item>
       <title>바챠트에 레이블 붙이기</title>

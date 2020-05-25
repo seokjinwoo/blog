@@ -1,0 +1,164 @@
+---
+title: R에서 자료 읽어들이기
+author: Seokjin Woo
+date: '2020-05-25'
+slug: aquire-data-into-r
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+
+<p>본 블로그 내용은 아래의 링크를 번역, 요약 해 놓은 것입니다. 자세한 내용은 아래 링크로 가서 확인해주셔요.</p>
+<p><a href="https://tutorial.guidotti.dev/a8a39/" class="uri">https://tutorial.guidotti.dev/a8a39/</a></p>
+<p>R로 불러들일 수 있는 자료는 크게 다음과 같이 나눌 수 있다.</p>
+<ul>
+<li>local files (csv, dat, 등)</li>
+<li>remote files</li>
+<li>R packages</li>
+<li>RESTful APIs</li>
+<li>web scraping</li>
+</ul>
+<div id="local-files" class="section level2">
+<h2>local files</h2>
+<p>먼저 <code>mtcars</code>라는 기본 자료를 로드하자. 그리고, csv 파일로 쓰자.</p>
+<pre class="r"><code>rm(list = ls())
+data(&quot;mtcars&quot;)
+write.csv(mtcars, file = &#39;mtcars.csv&#39;)</code></pre>
+<p>이렇게 쓴 자료는 다음과 같이 읽어들일 수 있다.</p>
+<pre class="r"><code>x &lt;- read.csv(&#39;mtcars.csv&#39;)
+head(x)</code></pre>
+<pre><code>##                   X  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## 4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## 5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## 6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+</div>
+<div id="remote-files" class="section level2">
+<h2>Remote files</h2>
+<p><code>read.table</code>을 이용해서 그린 계량경제학책에 사용된 자료를 아래와 같이 불러들일 수 있다.</p>
+<pre class="r"><code>x &lt;- read.table(&quot;http://people.stern.nyu.edu/wgreene/Text/Edition7/TableF5-2.txt&quot;,
+                header = TRUE)
+head(x)</code></pre>
+<pre><code>##   Year qtr realgdp realcons realinvs realgovt realdpi cpi_u     M1 tbilrate
+## 1 1950   1  1610.5   1058.9    198.1    361.0  1186.1  70.6 110.20     1.12
+## 2 1950   2  1658.8   1075.9    220.4    366.4  1178.1  71.4 111.75     1.17
+## 3 1950   3  1723.0   1131.0    239.7    359.6  1196.5  73.2 112.95     1.23
+## 4 1950   4  1753.9   1097.6    271.8    382.5  1210.0  74.9 113.93     1.35
+## 5 1951   1  1773.5   1122.8    242.9    421.9  1207.9  77.3 115.08     1.40
+## 6 1951   2  1803.7   1091.4    249.2    480.1  1225.8  77.6 116.19     1.53
+##   unemp     pop    infl  realint
+## 1   6.4 149.461  0.0000   0.0000
+## 2   5.6 150.260  4.5071  -3.3404
+## 3   4.6 151.064  9.9590  -8.7290
+## 4   4.2 151.871  9.1834  -7.8301
+## 5   3.5 152.393 12.6160 -11.2160
+## 6   3.1 152.917  1.5494  -0.0161</code></pre>
+<p>여기에서 변수 Year와 qtr 을 이용하여 date 라는 변수를 만들 수 있다.</p>
+<pre class="r"><code>library(tidyverse)
+library(zoo)
+
+x &lt;- x %&gt;% 
+  mutate(date = as.yearqtr(paste(Year,qtr, sep = &quot;&quot;),&quot;%Y%q&quot;))
+
+head(x)</code></pre>
+<pre><code>##   Year qtr realgdp realcons realinvs realgovt realdpi cpi_u     M1 tbilrate
+## 1 1950   1  1610.5   1058.9    198.1    361.0  1186.1  70.6 110.20     1.12
+## 2 1950   2  1658.8   1075.9    220.4    366.4  1178.1  71.4 111.75     1.17
+## 3 1950   3  1723.0   1131.0    239.7    359.6  1196.5  73.2 112.95     1.23
+## 4 1950   4  1753.9   1097.6    271.8    382.5  1210.0  74.9 113.93     1.35
+## 5 1951   1  1773.5   1122.8    242.9    421.9  1207.9  77.3 115.08     1.40
+## 6 1951   2  1803.7   1091.4    249.2    480.1  1225.8  77.6 116.19     1.53
+##   unemp     pop    infl  realint    date
+## 1   6.4 149.461  0.0000   0.0000 1950 Q1
+## 2   5.6 150.260  4.5071  -3.3404 1950 Q2
+## 3   4.6 151.064  9.9590  -8.7290 1950 Q3
+## 4   4.2 151.871  9.1834  -7.8301 1950 Q4
+## 5   3.5 152.393 12.6160 -11.2160 1951 Q1
+## 6   3.1 152.917  1.5494  -0.0161 1951 Q2</code></pre>
+</div>
+<div id="r-패키지" class="section level2">
+<h2>R 패키지</h2>
+<p>R 패키지 <code>quantmod</code>를 이용하면 다양한 금융자료를 웹에서 다운로드 받을 수 있다.</p>
+<pre class="r"><code>if (!require(&quot;quantmod&quot;)) install.packages(&quot;quantmod&quot;)</code></pre>
+<p><code>getSymbos</code>함수를 이용하면 다양한 금융자료를 로딩할 수 있다.</p>
+<p>예를 들어 <strong>FRED</strong> 자료를 다음과 같이 긁어 올 수 있다. 예를 들어 법인소득에 대한 과세에 대한 정보는 아래와 같이 받아올 수 있다.</p>
+<pre class="r"><code>x &lt;- getSymbols(Symbols = &#39;A054RC1A027NBEA&#39;, src = &#39;FRED&#39;, auto.assign = FALSE)   
+
+tail(x)</code></pre>
+<pre><code>##            A054RC1A027NBEA
+## 2014-01-01         407.309
+## 2015-01-01         396.595
+## 2016-01-01         377.595
+## 2017-01-01         319.412
+## 2018-01-01         219.768
+## 2019-01-01         218.177</code></pre>
+<p>간단히 다음과 같은 그림을 그릴 수도 있다.</p>
+<pre class="r"><code>autoplot(x) + 
+  xlab(&quot;date&quot;) +
+  ylab(&quot;tax on corporate income&quot;)</code></pre>
+<p><img src="/post/2020-05-25-aquire-data-into-r_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="웹스크레이핑" class="section level2">
+<h2>웹스크레이핑</h2>
+<pre class="r"><code>library(rvest)</code></pre>
+<pre class="r"><code>  # build url
+  url &lt;- &quot;http://www.hani.co.kr/arti/opinion/column/945609.html&quot;
+  
+  # sanitize url
+  url &lt;- URLencode(url)
+  
+  # get results
+  res &lt;- read_html(url) %&gt;%           # get url
+    html_nodes(&#39;div.text&#39;) %&gt;%  # select titles by css selector 
+    html_text()                       # extract text
+  
+  # return results
+ res &lt;- str_replace_all(res, &quot;[\r\n\t]&quot;,&quot;&quot;)
+ res[1] &lt;- str_split(res[1], &quot;\\.&quot;)
+ res</code></pre>
+<pre><code>## [[1]]
+##  [1] &quot;우석진 ㅣ 명지대 경제학과 교수역대 최악의 국회로 평가되는 20대 국회가 곧 막을 내린다&quot;                                                                                                   
+##  [2] &quot; 대통령 탄핵소추안을 가결시켰고, 범여권을 형성해 공직선거법, 공수처법, 검경 수사권 조정안을 통과시키기도 했다&quot;                                                                          
+##  [3] &quot; 하지만 전반적으로 민생이나 경제를 위해 입법 성과를 거둔 것은 거의 기억나지 않는다&quot;                                                                                                     
+##  [4] &quot; 문재인 정부 들어서는 국회와의 관계가 순탄치가 않아 개혁적 입법 대신 정부 내 시행령 개정을 통해 성과를 내려고 했던 것은 못내 아쉬웠다&quot;                                                  
+##  [5] &quot;이번 21대 국회는 코로나19 사태와 떨어져 생각하기 어렵다&quot;                                                                                                                                
+##  [6] &quot; 선거 과정에서도 코로나19 사태가 영향을 많이 주었지만, 이번 사태를 겪으면서 우리 사회의 취약점이 많이 드러났다&quot;                                                                         
+##  [7] &quot; 특히 재정의 입장에서 보면 이러한 취약점을 보완하기 위한 입법 과제들이 대두되었다&quot;                                                                                                      
+##  [8] &quot;최우선으로, 우리 국가채무를 어떻게 관리해나갈 것인지에 대한 논의와 입법이 필요하다&quot;                                                                                                     
+##  [9] &quot; 이번 긴급재난지원금 수준 결정에 있어 재정건전성을 이유로 허비한 시간을 생각하면 매우 아쉽다&quot;                                                                                           
+## [10] &quot; 지난주 발표된 대로 4월 일자리가 2월 대비 100만개 이상 사라진 것을 생각해보면 재정건전성 논의는 정말 허망했다&quot;                                                                          
+## [11] &quot; 공식적으로 말하지는 않지만 재정 당국자에게는 국가채무비율의 마지노선이 있다&quot;                                                                                                           
+## [12] &quot; 국내총생산(GDP) 대비 50% 혹은 60%의 국가채무비율이 우리 경제가 감내할 수 있는 최후의 선이라고 말한다&quot;                                                                                  
+## [13] &quot; 우리나라 통화가 기축통화가 아니기 때문에 다른 선진국과 국가채무 수준이 달라야 한다는 것이다&quot;                                                                                           
+## [14] &quot; 전가의 보도처럼 등장하는 “기축통화국” 논리다&quot;                                                                                                                                        
+## [15] &quot; 국가채무비율이 60%를 넘어서게 되면 외국 자본들이 급속도로 떠날 것이고 1998년에 우리가 겪었던 외환위기를 다시 겪을 것이라는 우려다&quot;                                                     
+## [16] &quot; 저출산·고령화 때문에 건강보험, 국민연금 등 보건복지 지출의 자연 증가분 15% 정도를 고려하면, 실질적인 국가채무비율의 마지노선은 45% 정도로 인식되고 있다&quot;                              
+## [17] &quot;하지만 과연 이 60%라는 수준이 말이 되는지 본격적으로 논의해볼 필요가 있다&quot;                                                                                                              
+## [18] &quot; 이번 코로나 사태를 맞아 전세계가 적극적인 재정정책을 펴고 있다&quot;                                                                                                                        
+## [19] &quot; 우리나라처럼 지디피 대비 2%대의 다소 소극적인 재정지출을 편성한 나라부터, 미국처럼 지디피의 11% 정도에 이르는 재정 충격 패키지를 편성한 나라도 있다&quot;                                   
+## [20] &quot; 동시에 국가채무비율의 분모가 되는 지디피가 상반기 마이너스 성장을 기록할 것이기 때문에 대부분 국가에서의 국가채무비율은 큰 폭으로 증가할 것이다&quot;                                       
+## [21] &quot; 우리의 국가채무비율이 증가한다고 해도 다른 나라들에 비해 상대적으로 높지 않기 때문에 국가위험을 과대포장할 필요가 없다&quot;                                                                
+## [22] &quot; 다만 ‘뉴노멀 시대’에 우리 경제가 감내할 수 있는 국가채무 수준을 재평가하고, 입법을 통해 재정준칙을 명확히 할 필요가 있다&quot;                                                            
+## [23] &quot; 우리나라의 국가채무 허용 범위에 대한 규칙이 명확하지 않기 때문에 우리가 할 수 있는 것과 없는 것을 구분할 수 없어 이번처럼 경제 관료에게 멱살 잡혀 끌려다니며 시간을 허비하게 된 것이다&quot;
+## [24] &quot;다음 과제는 복지국가를 뒷받침하기 위한 증세 로드맵을 세우는 것이다&quot;                                                                                                                     
+## [25] &quot; 지난 몇년간 사회보건복지 관련 지출은 꾸준히 늘어왔다&quot;                                                                                                                                  
+## [26] &quot; 또한 이번 코로나19 사태 이후에 경제 및 사회적 불평등은 확대될 것으로 예상된다&quot;                                                                                                         
+## [27] &quot; 왜냐하면 코로나19 전파를 막기 위해 사회적 거리두기에 따른 소득 감소가 모든 계층에 골고루 미친 것이 아니기 때문이다&quot;                                                                    
+## [28] &quot; 고소득 계층일수록 재택근무가 가능한 데 반해, 저소득층일수록 팬데믹에 대한 반응이 더디기 때문이다&quot;                                                                                      
+## [29] &quot; 사회적 거리두기로 인한 충격이 저소득층에 집중적으로 전달되게 된다&quot;                                                                                                                     
+## [30] &quot; 코로나 이후 불평등 완화를 위한 국가 재정의 역할이 더 중요해졌다&quot;                                                                                                                       
+## [31] &quot;재정운용의 기본은 일시적 재정 소요는 국채로, 장기적 소요는 조세로 충당하는 것이다&quot;                                                                                                      
+## [32] &quot; 지난 3년간 사회보건복지 지출은 다른 지출보다 배 이상 빠르게 증가해왔다&quot;                                                                                                                
+## [33] &quot; 하지만 그에 상응하는 조세 수입은 그렇지 못했다&quot;                                                                                                                                        
+## [34] &quot; 핀셋 증세라는 명목으로 최소한의 증가만 꾀했을 뿐, 폭발하는 복지 수요에 걸맞은 증세에는 소극적이었음을 부인할 수 없다&quot;                                                                  
+## [35] &quot; 증세 없이 복지국가로 간다는 것은 허언에 가깝다&quot;                                                                                                                                        
+## [36] &quot; 21대 국회에서는 우리나라가 복지국가로 발전해나갈 수 있는 재정적 기반을 확립하는 입법을 완성시켜야 한다&quot;                                                                                
+## [37] &quot; 근본적인 조세 개혁을 통해 세대간 계층간 대타협을 이끌어내야 한다&quot;                                                                                                                      
+## [38] &quot; 21대 국회에서는 180석에 가까운 거대 여당이 만들어졌으니 새로운 대한민국을 위한 입법 성과를 내줄 것을 기대해본다&quot;                                                                       
+## [39] &quot;&quot;</code></pre>
+</div>
