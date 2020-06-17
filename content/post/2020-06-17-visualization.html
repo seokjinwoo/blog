@@ -1,0 +1,93 @@
+---
+title: visualization 1
+author: Seokjin Woo
+date: '2020-06-17'
+slug: visualization
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+
+<p>R에서의 시각화는 대체로 ggplot2 패키지로 대동단결 되는 추세입니다.</p>
+<ol style="list-style-type: decimal">
+<li>ggplot2의 경우 라이브라러를 불러들이고</li>
+<li>데이터를 설정하고</li>
+<li>aesthetics, 즉 가로축, 세로축, 범주 등을 설정하고</li>
+<li>어떤 객체를 그릴지 설정하고</li>
+<li>그 외에 축, 범주 등과 관련된 옵션을 설정하면 됩니다.</li>
+</ol>
+<pre class="r"><code># 라이브러리를 로딩합니다.
+library(tidyverse)
+library(AER)
+
+# 내장된 자료인 mtcars 를 로딩합니다.
+data(&quot;GermanUnemployment&quot;)
+
+df &lt;- data.frame(date=as.Date(as.yearqtr(time(GermanUnemployment))), 
+                 as.matrix(GermanUnemployment))
+
+str(GermanUnemployment)</code></pre>
+<pre><code>##  Time-Series [1:120, 1:2] from 1962 to 1992: 1.1 0.5 0.4 0.7 1.6 0.6 0.5 0.7 1.3 0.6 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:2] &quot;unadjusted&quot; &quot;adjusted&quot;</code></pre>
+<div id="추세를-과장한다" class="section level2">
+<h2>추세를 과장한다</h2>
+<p>선그래프를 그리는 이유는 대체로 추세를 보여주기 위함이다. 이 때 중요한 요소가 y-축을 적절히 선택하는 것이다.</p>
+<p>아래 그림은 독일의 실업데이터를 보여주고 있다. 스케일의 선택이 중요한다. 보통은 0부터 그리는 것이 비교적 정확한 추세를 보여줄 수 있다. 왼쪽 그림이다.</p>
+<p>하지만 문맥에 따라서 오른쪽과 같이 출발점을 좀 높게 잡으면, 왼쪽 그림보다 좀 더 드라마틱한 변화가 있는 것처럼 보이게 할 수 있다.</p>
+<pre class="r"><code>library(patchwork)
+
+df %&gt;% 
+  filter(date &gt;= as.Date(as.yearqtr(1980,1)) &amp; date &lt;= as.Date(as.yearqtr(1985,4))) %&gt;% 
+  ggplot(aes(x = date , y = adjusted)) +
+  geom_line(size = 1.0) +
+  ylim(0, 11) -&gt; p1
+
+
+df %&gt;% 
+  filter(date &gt;= as.Date(as.yearqtr(1980,1)) &amp; date &lt;= as.Date(as.yearqtr(1985,4))) %&gt;% 
+  ggplot(aes(x = date , y = adjusted)) +
+  geom_line(size = 1.0) +
+  ylim(3.5, 10) -&gt; p2
+
+
+p1 + p2</code></pre>
+<p><img src="/post/2020-06-17-visualization_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>그렇다고 모든 y-축의 베이스라인을 0부터 출발하는 것이 늘 옳은 것은 아니다. 바 챠트의 경우에는 베이스라인을 0에서 부터 출발하는 것이 맞지만 선 그래프의 경우에는 반드시 그런 것은 아니다.</p>
+<p>대체로 챠트의 높이가 전체의 <strong>2/3</strong> 정도면 보기에도 좋다. 위 그림 중 왼쪽 그림을 보면 챠트가 들어가 있는 그리드가 대체로 5개이기 때문에 전체 그리드의 갯수는 7-8개 정도면 된다. 마침 베이스 라인을 0으로 했을 때 그렇게 그려진다. 한 가지 고민은 위 아래 대칭적으로 표시하는 것이 좋은지는 생각해볼 포인트 이다.</p>
+<pre class="r"><code>df %&gt;% 
+  filter(date &gt;= as.Date(as.yearqtr(1980,1)) &amp; date &lt;= as.Date(as.yearqtr(1985,4))) %&gt;% 
+  ggplot(aes(x = date , y = unadjusted)) +
+  geom_line(size = 1.0) +
+  ylim(2, 11) </code></pre>
+<p><img src="/post/2020-06-17-visualization_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="선의-굵기" class="section level2">
+<h2>선의 굵기</h2>
+<p>선의 굵기 역시 중요하다. 너무 얇으면 잘 보이지 않고(제가 노안이라서) 무엇보다 가독성이 떨어진다.
+너무 굵은 경우에는 자세한 디테일을 읽기가 어려워진다.</p>
+<pre class="r"><code>data(&quot;USMacroSWM&quot;)
+
+
+df &lt;- data.frame(date=as.Date(as.yearmon(time(USMacroSWM))), 
+                 as.matrix(USMacroSWM))
+
+df %&gt;% 
+  filter(date &gt;= as.Date(as.yearmon(2000,1)) ) %&gt;% 
+  ggplot(aes(x = date , y = cpi)) +
+  geom_line(size = 0.1) -&gt; p1
+
+
+df %&gt;% 
+  filter(date &gt;=  as.Date(as.yearmon(2000,1)) ) %&gt;% 
+  ggplot(aes(x = date , y = cpi)) +
+  geom_line(size = 3.0) -&gt; p2
+
+
+p1 + p2</code></pre>
+<p><img src="/post/2020-06-17-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
