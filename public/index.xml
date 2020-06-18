@@ -22,6 +22,19 @@ ggplot2의 경우 라이브라러를 불러들이고데이터를 설정하고a
     </item>
     
     <item>
+      <title>visualization 2</title>
+      <link>/2020/06/17/visualization-2/</link>
+      <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/06/17/visualization-2/</guid>
+      <description>그래프를 그리다보면 Y-축의 단위가 애매해지는 경우가 있다.
+보통은 가독성이 높은 축을 선택하는 것이 좋다.
+좋은 경우
+0, 1, 2, 3, 4, 50, 2, 4, 6, 80, 5, 10, 15, 20등
+# 라이브러리를 로딩합니다.library(tidyverse)library(AER)library(patchwork)data(&amp;quot;USMacroSWM&amp;quot;)df &amp;lt;- data.frame(date=as.Date(as.yearmon(time(USMacroSWM))), as.matrix(USMacroSWM))df %&amp;gt;% filter(date &amp;gt;= as.Date(as.yearmon(1980, 1))) %&amp;gt;% ggplot(aes(x = date, y = cpi)) +geom_line() -&amp;gt; p1df %&amp;gt;% filter(date &amp;gt;= as.Date(as.yearmon(1980, 1))) %&amp;gt;% ggplot(aes(x = date, y = cpi)) +geom_line() +scale_y_continuous(breaks = seq(80,190,10)) -&amp;gt; p2df %&amp;gt;% filter(date &amp;gt;= as.</description>
+    </item>
+    
+    <item>
       <title>R에서 자료 읽어들이기</title>
       <link>/2020/05/25/aquire-data-into-r/</link>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
