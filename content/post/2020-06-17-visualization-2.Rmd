@@ -1,7 +1,7 @@
 ---
 title: visualization 2
 author: Seokjin Woo
-date: '2020-06-17'
+date: '2020-06-18'
 slug: visualization-2
 categories:
   - R

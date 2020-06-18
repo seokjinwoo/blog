@@ -6,10 +6,23 @@
     <description>Recent content in Posts on General Specialist&#39;s Repository</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>visualization 2</title>
+      <link>/2020/06/18/visualization-2/</link>
+      <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/06/18/visualization-2/</guid>
+      <description>그래프를 그리다보면 Y-축의 단위가 애매해지는 경우가 있다.
+보통은 가독성이 높은 축을 선택하는 것이 좋다.
+좋은 경우
+0, 1, 2, 3, 4, 50, 2, 4, 6, 80, 5, 10, 15, 20등
+# 라이브러리를 로딩합니다.library(tidyverse)library(AER)library(patchwork)data(&amp;quot;USMacroSWM&amp;quot;)df &amp;lt;- data.frame(date=as.Date(as.yearmon(time(USMacroSWM))), as.matrix(USMacroSWM))df %&amp;gt;% filter(date &amp;gt;= as.Date(as.yearmon(1980, 1))) %&amp;gt;% ggplot(aes(x = date, y = cpi)) +geom_line() -&amp;gt; p1df %&amp;gt;% filter(date &amp;gt;= as.Date(as.yearmon(1980, 1))) %&amp;gt;% ggplot(aes(x = date, y = cpi)) +geom_line() +scale_y_continuous(breaks = seq(80,190,10)) -&amp;gt; p2df %&amp;gt;% filter(date &amp;gt;= as.</description>
+    </item>
     
     <item>
       <title>visualization 1</title>
@@ -19,19 +32,6 @@
       <guid>/2020/06/17/visualization/</guid>
       <description>R에서의 시각화는 대체로 ggplot2 패키지로 대동단결 되는 추세입니다.
 ggplot2의 경우 라이브라러를 불러들이고데이터를 설정하고aesthetics, 즉 가로축, 세로축, 범주 등을 설정하고어떤 객체를 그릴지 설정하고그 외에 축, 범주 등과 관련된 옵션을 설정하면 됩니다.# 라이브러리를 로딩합니다.library(tidyverse)library(AER)# 내장된 자료인 mtcars 를 로딩합니다.data(&amp;quot;GermanUnemployment&amp;quot;)df &amp;lt;- data.frame(date=as.Date(as.yearqtr(time(GermanUnemployment))), as.matrix(GermanUnemployment))str(GermanUnemployment)## Time-Series [1:120, 1:2] from 1962 to 1992: 1.1 0.5 0.4 0.7 1.6 0.6 0.5 0.7 1.3 0.</description>
-    </item>
-    
-    <item>
-      <title>visualization 2</title>
-      <link>/2020/06/17/visualization-2/</link>
-      <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/06/17/visualization-2/</guid>
-      <description>그래프를 그리다보면 Y-축의 단위가 애매해지는 경우가 있다.
-보통은 가독성이 높은 축을 선택하는 것이 좋다.
-좋은 경우
-0, 1, 2, 3, 4, 50, 2, 4, 6, 80, 5, 10, 15, 20등
-# 라이브러리를 로딩합니다.library(tidyverse)library(AER)library(patchwork)data(&amp;quot;USMacroSWM&amp;quot;)df &amp;lt;- data.frame(date=as.Date(as.yearmon(time(USMacroSWM))), as.matrix(USMacroSWM))df %&amp;gt;% filter(date &amp;gt;= as.Date(as.yearmon(1980, 1))) %&amp;gt;% ggplot(aes(x = date, y = cpi)) +geom_line() -&amp;gt; p1df %&amp;gt;% filter(date &amp;gt;= as.Date(as.yearmon(1980, 1))) %&amp;gt;% ggplot(aes(x = date, y = cpi)) +geom_line() +scale_y_continuous(breaks = seq(80,190,10)) -&amp;gt; p2df %&amp;gt;% filter(date &amp;gt;= as.</description>
     </item>
     
     <item>
