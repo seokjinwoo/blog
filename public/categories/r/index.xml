@@ -6,10 +6,23 @@
     <description>Recent content in R on General Specialist&#39;s Repository</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>visualizatrion 3</title>
+      <link>/2020/06/19/visualizatrion-3/</link>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/06/19/visualizatrion-3/</guid>
+      <description>추세선을 그리다 보면 많은 선을 그려야 할 때가 있다. 그 때 선들을 구분하기 위해서 다양한 방법을 사용한다.
+스파게티 라인색깔 구분두께 구분등의 방법을 사용하게 된다.
+library(tidyverse)library(AER)library(patchwork)library(lubridate)data(&amp;quot;Guns&amp;quot;)3-4개의 라인으로 정리아래 선 중 왼쪽 것은 50개주의 강력범죄 추세를 그려놓은 것이다.
+주의 구분을 하기 위해서 solid, dash 등을 적용한 것이 이른바 스파케티 선을 표시한 것이다.
+마커를 집어 넣든, 아니면 선의 패턴을 정해주든지 선의 갯수가 많아지면 정신 사나와 지는 법이다.</description>
+    </item>
     
     <item>
       <title>visualization 2</title>

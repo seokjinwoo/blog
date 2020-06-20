@@ -1,0 +1,95 @@
+---
+title: visualizatrion 3
+author: Seokjin Woo
+date: '2020-06-19'
+slug: visualizatrion-3
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+
+<p>추세선을 그리다 보면 많은 선을 그려야 할 때가 있다. 그 때 선들을 구분하기 위해서 다양한 방법을 사용한다.</p>
+<ul>
+<li>스파게티 라인</li>
+<li>색깔 구분</li>
+<li>두께 구분</li>
+</ul>
+<p>등의 방법을 사용하게 된다.</p>
+<pre class="r"><code>library(tidyverse)
+library(AER)
+library(patchwork)
+library(lubridate)
+
+data(&quot;Guns&quot;)</code></pre>
+<div id="개의-라인으로-정리" class="section level2">
+<h2>3-4개의 라인으로 정리</h2>
+<p>아래 선 중 왼쪽 것은 50개주의 강력범죄 추세를 그려놓은 것이다.</p>
+<p>주의 구분을 하기 위해서 solid, dash 등을 적용한 것이 이른바 스파케티 선을 표시한 것이다.</p>
+<p>마커를 집어 넣든, 아니면 선의 패턴을 정해주든지 선의 갯수가 많아지면 정신 사나와 지는 법이다.</p>
+<p>대체로 3-4개 정도의 라인을 포함시키는 것이 좋다. 우리가 관심 있어 하는 대상과, 비교 대상이 되는 2-3개 정도를 선택하여 집어 넣으면 대비가 잘 되어 시각적으로 보기 좋다.</p>
+<pre class="r"><code>top_10 &lt;- (state = Guns$state )
+
+
+top_10 &lt;- Guns %&gt;% 
+  select(state) %&gt;% 
+  unique() %&gt;% 
+  top_n(6) %&gt;% 
+  unlist() %&gt;% 
+  as.vector()
+
+Guns %&gt;% 
+  mutate(date = year(as.Date(year, format = &quot;%Y&quot;)) ) %&gt;%
+  filter(state %in% top_10) %&gt;% 
+  ggplot(aes(x = date, y = violent, group = state)) +
+  geom_line(aes(linetype = state)) +
+  geom_point(aes(shape = state)) +
+  theme(legend.position = &quot;none&quot;) -&gt; p1
+
+
+st &lt;- c(
+  &quot;New York&quot;,
+  &quot;California&quot;,
+  &quot;Virginia&quot;,
+  &quot;Massachusetts&quot;
+  )
+
+Guns %&gt;% 
+  filter(state %in% st) %&gt;% 
+  mutate(date = year(as.Date(year, format = &quot;%Y&quot;)) ) %&gt;%
+  ggplot(aes(x = date, y = violent, group = state)) +
+  geom_line(aes(linetype = state)) +
+  geom_point(aes(shape = state)) +
+  ylim(0, 1500) +
+  theme(    
+    legend.position = &quot;none&quot;,
+    ) -&gt; p2
+
+         
+p1 + p2</code></pre>
+<p><img src="/post/2020-06-19-visualizatrion-3_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>위의 그림들처럼 shape 과 패턴을 바꿔주는 것 보다는 선의 굵기를 조정해주면 시각적으로는 더 보기 좋다. 아니면 투명도를 조정하는 것도 하나의 방법이긴 하다.</p>
+<pre class="r"><code>st &lt;- c(
+  &quot;New York&quot;,
+  &quot;California&quot;,
+  &quot;Virginia&quot;,
+  &quot;Massachusetts&quot;
+  )
+
+Guns %&gt;% 
+  filter(state %in% st) %&gt;% 
+  mutate(date   = year(as.Date(year, format = &quot;%Y&quot;)) ) %&gt;%
+  mutate(lsize  = ifelse(state == &quot;New York&quot;, 1.2, 1.0),
+         lalpha = ifelse(state == &quot;New York&quot;, 1.0, 0.9)) %&gt;% 
+  ggplot(aes(x = date, y = violent, group = state, size = lsize )) +
+  geom_line(aes(color = state)) +
+  scale_size(range = c(1,2), guide = &quot;none&quot;) +
+  ylim(0, 1500) +
+  theme(legend.position = &quot;none&quot; ) -&gt; p1
+
+         
+p1</code></pre>
+<p><img src="/post/2020-06-19-visualizatrion-3_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
