@@ -82,3 +82,22 @@ Guns %>%
 
 
 ```
+
+또 하나의 좋은 방법은 선의 앞이나 끝에 바로 레이블을 달아주는 것이다. 아래에서는 directlabels 라는 패키지를 사용하였다. 그 중 geom_dl()을 사용하여 맨 앞에 주 이름을 달아주었다.
+
+
+```{r, message=FALSE}
+library(directlabels)
+Guns %>% 
+  filter(state %in% st) %>% 
+  mutate(date = year(as.Date(year, format = "%Y")) ) %>%
+  mutate(state = fct_reorder(state, violent, tail, n = 1, .desc = TRUE))%>%
+  ggplot(aes(x = date, y = violent, group = state, color = state)) +
+  geom_line(aes(linetype = state)) +
+  geom_point(aes(shape = state)) +
+  geom_dl(aes(label = state), method = list(dl.combine("first.points"), hjust = 1.2), size = 1.0) +
+  ylim(0, 1500) +
+  xlim(1972, 2000) +
+  theme_bw() + 
+  theme(legend.position = "none")
+```
