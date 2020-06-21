@@ -6,10 +6,23 @@
     <description>Recent content in R Markdown on General Specialist&#39;s Repository</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Visualization 4</title>
+      <link>/2020/06/20/visualization-4/</link>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/06/20/visualization-4/</guid>
+      <description>레이블링은 되도록 가깝게챠트를 그리고 나면 최후에 남는 문제는 범례 등을 이용해서 선의 레이블링을 해주는 것이다.
+범례는 챠트를 보는 사람이 최대한 가까운 거리에서 확인할 수 있도록 해주는 것이 중요하다.
+아래와 같이 범례를 추세선에 가까운 자리에 붙여주면 가독성이 향상이 된다. 여기에서는 theme() 에 legend.position 을 정해주었다.
+legend.position의 경우 위치를 손으로 정해주어야 하기 때문에 약간의 시행착오가 필요하긴 하다. 보통 선과 겹치지 않는 11시 방향이나 1방시 향 정도가 적당하다.
+library(tidyverse)library(AER)library(patchwork)library(lubridate)data(&amp;quot;Guns&amp;quot;)st &amp;lt;- c(&amp;quot;New York&amp;quot;,&amp;quot;California&amp;quot;,&amp;quot;Virginia&amp;quot;,&amp;quot;Massachusetts&amp;quot;)Guns %&amp;gt;% filter(state %in% st) %&amp;gt;% mutate(date = year(as.</description>
+    </item>
     
     <item>
       <title>visualization 3</title>

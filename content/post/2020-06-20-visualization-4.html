@@ -1,0 +1,65 @@
+---
+title: Visualization 4
+author: Seokjin Woo
+date: '2020-06-20'
+slug: visualization-4
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+
+<div id="레이블링은-되도록-가깝게" class="section level2">
+<h2>레이블링은 되도록 가깝게</h2>
+<p>챠트를 그리고 나면 최후에 남는 문제는 범례 등을 이용해서 선의 레이블링을 해주는 것이다.</p>
+<p>범례는 챠트를 보는 사람이 최대한 가까운 거리에서 확인할 수 있도록 해주는 것이 중요하다.</p>
+<p>아래와 같이 범례를 추세선에 가까운 자리에 붙여주면 가독성이 향상이 된다. 여기에서는 theme() 에 legend.position 을 정해주었다.</p>
+<p>legend.position의 경우 위치를 손으로 정해주어야 하기 때문에 약간의 시행착오가 필요하긴 하다. 보통 선과 겹치지 않는 11시 방향이나 1방시 향 정도가 적당하다.</p>
+<pre class="r"><code>library(tidyverse)
+library(AER)
+library(patchwork)
+library(lubridate)
+
+data(&quot;Guns&quot;)
+
+st &lt;- c(
+  &quot;New York&quot;,
+  &quot;California&quot;,
+  &quot;Virginia&quot;,
+  &quot;Massachusetts&quot;
+  )
+
+Guns %&gt;% 
+  filter(state %in% st) %&gt;% 
+  mutate(date = year(as.Date(year, format = &quot;%Y&quot;)) ) %&gt;%
+  ggplot(aes(x = date, y = violent, group = state, color = state)) +
+  geom_line(aes(linetype = state)) +
+  geom_point(aes(shape = state)) +
+  ylim(0, 1500) +
+  theme(
+    legend.position = c(0.12, 0.85),
+    legend.title = element_blank(),
+    legend.background = element_rect(fill = &quot;transparent&quot;, colour = NA)
+    ) </code></pre>
+<p><img src="/post/2020-06-20-visualization-4_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>위 범례의 문제점 중 하나는 선의 값에 따라서 범례의 순서가 정해진 것은 아니라는 점이다.</p>
+<p>사람들은 보통 최신 값을 들여다보고 각 값의 범주가 무엇인지를 찾기 위해 범례를 찾아본다.</p>
+<p>그러니, 최신값의 순서대로 범례가 순서지어 있으면 보기에 편하다.</p>
+<p>이를 위해서 factor로 되어 있는 state 변수를 violent 값에 따라서 fct_reorder() 함수를 이용하여 정열하고 나서 챠트를 그렸다.</p>
+<pre class="r"><code>Guns %&gt;% 
+  filter(state %in% st) %&gt;% 
+  mutate(date = year(as.Date(year, format = &quot;%Y&quot;)) ) %&gt;%
+  mutate(state = fct_reorder(state, violent, tail, n = 1, .desc = TRUE))%&gt;%
+  ggplot(aes(x = date, y = violent, group = state, color = state)) +
+  geom_line(aes(linetype = state)) +
+  geom_point(aes(shape = state)) +
+  ylim(0, 1500) +
+  theme(
+    legend.position = c(0.9, 0.85),
+    legend.title = element_blank(),
+    legend.background = element_rect(fill = &quot;transparent&quot;, colour = NA)
+    ) </code></pre>
+<p><img src="/post/2020-06-20-visualization-4_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
