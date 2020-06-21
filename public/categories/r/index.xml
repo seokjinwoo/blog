@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Visualization 4</title>
+      <title>챠트 4 - 레이블링은 적절히</title>
       <link>/2020/06/20/visualization-4/</link>
       <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
       
@@ -25,7 +25,7 @@ library(tidyverse)library(AER)library(patchwork)library(lubridate)data(&amp;
     </item>
     
     <item>
-      <title>visualization 3</title>
+      <title>챠트 3 - 스파게티 라인은 피하자</title>
       <link>/2020/06/19/visualizatrion-3/</link>
       <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
       
@@ -38,7 +38,7 @@ library(tidyverse)library(AER)library(patchwork)library(lubridate)data(&amp;
     </item>
     
     <item>
-      <title>visualization 2</title>
+      <title>챠트 2 - y축 단위를 적절하게</title>
       <link>/2020/06/18/visualization-2/</link>
       <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
       
@@ -51,7 +51,7 @@ library(tidyverse)library(AER)library(patchwork)library(lubridate)data(&amp;
     </item>
     
     <item>
-      <title>visualization 1</title>
+      <title>챠트 1 - 추세선 그리기</title>
       <link>/2020/06/17/visualization/</link>
       <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
       

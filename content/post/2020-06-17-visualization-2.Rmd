@@ -1,12 +1,12 @@
 ---
-title: visualization 2
+title: 챠트 2 - y축 단위를 적절하게
 author: Seokjin Woo
 date: '2020-06-18'
-slug: visualization-2
 categories:
   - R
 tags:
   - R Markdown
+slug: visualization-2
 ---
 
 그래프를 그리다보면 Y-축의 단위가 애매해지는 경우가 있다.

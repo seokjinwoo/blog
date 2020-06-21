@@ -1,12 +1,12 @@
 ---
-title: Visualization 4
+title: 챠트 4 - 레이블링은 적절히
 author: Seokjin Woo
 date: '2020-06-20'
-slug: visualization-4
 categories:
   - R
 tags:
   - R Markdown
+slug: visualization-4
 ---
 
 ## 레이블링은 되도록 가깝게
