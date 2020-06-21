@@ -93,3 +93,29 @@ Guns %&gt;%
 p1</code></pre>
 <p><img src="/post/2020-06-19-visualizatrion-3_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
+<div id="face-wrap" class="section level2">
+<h2>face wrap</h2>
+<p>선이 부득이하게 6개 정도 이상이 되면 같이 그리는 것보다는 face_wrap() 을 이용하여 챠트를 연이어 그리는 것도 일종의 시각화가 된다.</p>
+<pre class="r"><code>st &lt;- c(
+  &quot;New York&quot;,
+  &quot;California&quot;,
+  &quot;Virginia&quot;,
+  &quot;Massachusetts&quot;,
+  &quot;Wisconsin&quot;,
+  &quot;Michigan&quot;
+  )
+
+Guns %&gt;% 
+  filter(state %in% st) %&gt;% 
+  mutate(date = year(as.Date(year, format = &quot;%Y&quot;)) ) %&gt;%
+  ggplot(aes(x = date, y = violent, group = state, color = state)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~state) +
+  ylim(0, 1500) +
+  xlim(1975,2002) +
+  theme(
+    legend.position = &quot;none&quot;
+  )</code></pre>
+<p><img src="/post/2020-06-19-visualizatrion-3_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>

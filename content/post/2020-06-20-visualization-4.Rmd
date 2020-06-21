@@ -109,33 +109,3 @@ Guns %>%
 
 
 
-## face wrap
-
-선이 부득이하게 6개 정도 이상이 되면 같이 그리는 것보다는 face_wrap() 을 이용하여 챠트를 연이어 그리는 것도 일종의 시각화가 된다.
-
-```{r, message=FALSE}
-
-st <- c(
-  "New York",
-  "California",
-  "Virginia",
-  "Massachusetts",
-  "Wisconsin",
-  "Michigan"
-  )
-
-Guns %>% 
-  filter(state %in% st) %>% 
-  mutate(date = year(as.Date(year, format = "%Y")) ) %>%
-  ggplot(aes(x = date, y = violent, group = state, color = state)) +
-  geom_line() +
-  geom_point() +
-  facet_wrap(~state) +
-  ylim(0, 1500) +
-  xlim(1975,2002) +
-  theme(
-    legend.position = "none"
-  )
-
-```
-
