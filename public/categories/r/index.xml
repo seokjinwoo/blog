@@ -6,10 +6,24 @@
     <description>Recent content in R on General Specialist&#39;s Repository</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Web crawling Seoul COVID-19</title>
+      <link>/2020/07/17/web-crawling-seoul-covid-19/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/07/17/web-crawling-seoul-covid-19/</guid>
+      <description>박원순 시장 재임 시절에 서울시 사이트들이 매우 데이터 친화적으로 구성되어 있습니다.
+이번 코로나 19 현황판도 매우 친절하게 되어 있더군요.
+공무원 특유의 공급자 위주의 사이트가 아니라수요자 중심의 사이트라는 것을 작업해보면서 느길 수 가 있었습니다.
+박원순 전시장의 분위기를 느낄 수가 있었습니다.
+동영상 링크를 걸어둡니다.
+</description>
+    </item>
     
     <item>
       <title>챠트 4 - 레이블링은 적절히</title>
