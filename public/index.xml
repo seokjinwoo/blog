@@ -12,6 +12,19 @@
     
     
     <item>
+      <title>Regular expression Youtue</title>
+      <link>/2020/07/18/regular-expression-youtue/</link>
+      <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/07/18/regular-expression-youtue/</guid>
+      <description>비정형 자료인 문자를 가지고 분석을 하다보면정규식을 만나게 됩니다.
+정규식을 배우기 위해서 책도 보고 인터넷 검색도 해보는데체계적으로 설명해주는 곳이 많지 않아 배우기 어려웠습니다.
+여기 링크한 유튜브가 그나마 좀 난 것 같습니다.
+제가 시간이 좀 더 나면 한글 버젼으로 유튜브 제작을 해보겠습니다.
+</description>
+    </item>
+    
+    <item>
       <title>Web crawling Seoul COVID-19</title>
       <link>/2020/07/17/web-crawling-seoul-covid-19/</link>
       <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
