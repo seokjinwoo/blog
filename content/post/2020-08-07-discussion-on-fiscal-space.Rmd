@@ -1,0 +1,15 @@
+---
+title: Discussion on fiscal space
+author: Seokjin Woo
+date: '2020-08-07'
+slug: discussion-on-fiscal-space
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+
+아래 링크에 지난 국회 토론회에서 진행했던 재정지출 확대와 재정건전성에 대한 토론입니다.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JlmWbIu6vWM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
