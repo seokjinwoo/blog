@@ -19,7 +19,7 @@ tags:
 library(tidyverse)
 library(rvest)
 
-# Sys.setlocale("LC_ALL","English")
+Sys.setlocale("LC_ALL","English")
 ```
 
 서울시 코로나 사이트에 가서 확진자 현황 긁어 오자. 그리고 날짜 등에 대해서 형식을 약간 바꿔주자. 
