@@ -1,0 +1,67 @@
+---
+title: COVID-19 2nd Wave in Seoul
+author: Seokjin Woo
+date: '2020-08-24'
+slug: covid-19-2nd-wave-in-seoul
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+서울 코로나 상황이 심상치 않다. 2차 웨이브가 심하게 진행중이다. 
+
+서울시 사이트에서 확진자 현황을 가지고 와서 신규확진자 현황을 그려보았다. 
+
+필요한 라이브러리 로딩하자. 인코딩 때문에 ``Sys.setlocale`` 셋팅 하는 거 잊지 말자. 에러난다. 
+
+```{r, message=FALSE}
+library(tidyverse)
+library(rvest)
+
+# Sys.setlocale("LC_ALL","English")
+```
+
+서울시 코로나 사이트에 가서 확진자 현황 긁어 오자. 그리고 날짜 등에 대해서 형식을 약간 바꿔주자. 
+
+```{r, message=FALSE}
+url <- "https://www.seoul.go.kr/coronaV/coronaStatus.do#status_page_top"
+
+df <- read_html(url) %>% 
+  html_nodes("div table ") %>% 
+  html_table(fill = TRUE)
+
+df.table <- df[[7]]
+
+names(df.table) <- c("id", "patientid", "date_confirmed", "residence", "travel", "contact","assign")
+
+
+df.table$date_confirmed <- as.Date(df.table$date_confirmed, format = "%m.%d")
+```
+
+이렇게 만들어진 자료를 이용하여 아래와 같은 그림을 그려보자.
+
+```{r, message=FALSE}
+df.table %>% 
+  # filter(date_confirmed >= "2020-05-01") %>% 
+  mutate(type = ifelse(contact == "성북구 사랑제일교회 관련", "사랑제일교회", 
+                       ifelse(contact == "용인시 우리제일교회 관련","우리제일교회","기타"))) %>% 
+  group_by(date_confirmed, type) %>% 
+  summarise(daily = n()) %>% 
+  ggplot(aes(x = date_confirmed, y = daily, fill = type)) +
+  geom_bar(stat = "identity", color = "white") +
+  geom_vline(xintercept = as.numeric(as.Date("2020-08-15")),
+             color = "red") + 
+  scale_x_date(breaks = "2 week", date_labels = "%m-%d") +
+  labs(
+    title = "2nd Covid-19 wave in Seoul",
+    x = "날짜",
+    y = "확진자수"
+  ) +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank()) +
+  scale_fill_brewer(palette = "Set1")
+
+```
+
