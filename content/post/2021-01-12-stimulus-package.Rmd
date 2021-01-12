@@ -1,12 +1,12 @@
 ---
-title: Stimulus package
+title: 재난지원금의 효과
 author: Seokjin Woo
 date: '2021-01-12'
-slug: stimulus-package
 categories:
   - R
 tags:
   - R Markdown
+slug: stimulus-package
 ---
 
 ## 개요
@@ -65,7 +65,7 @@ $$ MPC = \frac{d C}{d Y} $$
 
 ![](/post/2021-01-12-stimulus-package_files/image01.png)
 
-* 참고로 형아가 하고 있는 서울시 긴급생활비의 경우 하위 50%에 집중해서 지원을 했는데, MPC = 0.7-0.8 정도로 추정된다. 
+
 
 ## 효과의 크기에 대한 해석
 
