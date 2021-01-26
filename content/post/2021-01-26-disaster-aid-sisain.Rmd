@@ -1,12 +1,12 @@
 ---
-title: Disaster Aid -Sisain
+title: 재난지원금 - 시사인 기사
 author: Seokjin Woo
 date: '2021-01-26'
-slug: disaster-aid-sisain
 categories:
   - R
 tags:
   - R Markdown
+slug: disaster-aid-sisain
 ---
 
 # 재난지원금 받은 국민들, 평균소비에서 더 썼을까?
