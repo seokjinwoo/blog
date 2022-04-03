@@ -33,7 +33,7 @@ tags:
 
 실습파일은 3개를 가지고 전체 실습을 진행하고 있어서, 일관성은 좋지만 다소 지루한 측면도 없진 않습니다.
 
-카드 데이터인데, 체크아웃, 소비자, 매장 자료로 구성이 되어 있다. 물론, 다른 데이터 셋도 실습 파일에는 포함이 되어 있지만 거의 사용되지 않는다.
+카드 데이터인데, 체크아웃, 소비자, 매장 자료로 구성이 되어 있다. 물론, 다른 데이터 셋도 실습 파일에는 포함이 되어 있지만 거의 사용되지 않습니다.
 
 ```{r, echo=FALSE}
 checkout <- read.csv("C:/Users/genos/Dropbox/R_manual/datasmmary/summary/data/checkout.csv", fileEncoding = "UTF-8")
@@ -42,7 +42,7 @@ merchant <- read.csv("C:/Users/genos/Dropbox/R_manual/datasmmary/summary/data/me
 ```
 
 
-예를 들면 다음과 같은 자료이다. checkout 자료는 아래와 같이 시간, 소비자 아이디, 업소 아이디, 분류, 금액으로 구성되어 있습니다. 
+예를 들면 다음과 같은 자료입니다. checkout 자료는 아래와 같이 시간, 소비자 아이디, 업소 아이디, 분류, 금액으로 구성되어 있습니다. 
 
 ```{r}
 head(checkout, n =5)
