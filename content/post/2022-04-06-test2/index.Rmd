@@ -1,0 +1,12 @@
+---
+title: test2
+author: Seokjin
+date: '2022-04-06'
+slug: test2
+categories:
+  - R
+tags:
+  - R Markdown
+---
+
+testt
