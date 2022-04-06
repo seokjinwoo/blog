@@ -14,4 +14,3 @@ slug: coroan-update
 
 ![](images/Graph.png){width=600px}
 
-신규확진자는 7일 이동평균입니다.
