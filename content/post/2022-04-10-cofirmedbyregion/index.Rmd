@@ -9,6 +9,6 @@ tags:
 slug: cofirmedbyregion
 ---
 
-우리나라 지역별 확진자 현황. 어쨋든 저쨋든 내려갑니다.
+우리나라 지역별 확진자 현황. 어쨋든 저쨋든 내려갑니다. 그렇습니다. 
 
 ![](images/confirmed.png){width=600px}
