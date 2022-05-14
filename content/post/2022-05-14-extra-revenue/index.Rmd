@@ -1,12 +1,12 @@
 ---
-title: Extra_revenue
+title: 초과세수와 진도비
 author: Seokjin
 date: '2022-05-14'
-slug: extra-revenue
 categories:
   - R
 tags:
   - R Markdown
+slug: extra-revenue
 ---
 
 ## 추가세수
