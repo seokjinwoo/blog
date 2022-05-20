@@ -1,12 +1,12 @@
 ---
-title: Total_revenue
+title: 총수입 추이
 author: Seokjin Woo
 date: '2022-05-20'
-slug: total-revenue
 categories:
   - R
 tags:
   - R Markdown
+slug: total-revenue
 ---
 
 초과세수 때문에 난리인데, 초과세수만 보면 뭔가 허전한 느낌이 있다.
